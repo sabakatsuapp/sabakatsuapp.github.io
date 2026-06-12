@@ -104,6 +104,9 @@
 
   /* ── 安心ポイント ── */
   .trust{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;}
+  .trust.fGrid2{grid-template-columns:1fr 1fr;}
+  .moreChips{text-align:center;color:var(--muted);font-size:11.5px;line-height:2.4;margin-top:18px;}
+  .moreChips span{display:inline-block;border:1.5px solid #3a4252;border-radius:13px;padding:2px 12px;margin:0 3px;color:#aab6c6;font-weight:700;white-space:nowrap;}
   .trustItem{background:var(--panel);border-radius:14px;padding:16px 8px;text-align:center;}
   .trustIcon{font-size:22px;}
   .trustT{font-size:12px;font-weight:800;margin-top:8px;}
@@ -153,6 +156,215 @@
     </a>
   </header>
 
+  <!-- ════════ 画面イメージ ════════ -->
+  <style>
+    .shots{display:flex;gap:14px;overflow-x:auto;padding:6px 2px 16px;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;}
+    .shot{flex:none;width:236px;background:#15171c;border:1.5px solid #2e333c;border-radius:22px;overflow:hidden;scroll-snap-align:center;box-shadow:0 8px 24px #0008;}
+    .shotBar{display:flex;align-items:center;justify-content:space-between;padding:10px 12px 8px;background:#1c1f26;border-bottom:1px solid #262b34;color:#dfe5ee;font-size:11px;font-weight:800;}
+    .shotBar .ac{color:#d6f549;font-weight:700;}
+    .shotBody{padding:10px;display:flex;flex-direction:column;gap:8px;font-size:0;}
+    .sCard{background:#1e2128;border-radius:10px;padding:9px 10px;}
+    .sRowL{display:flex;align-items:center;gap:6px;font-size:11px;color:#dfe5ee;font-weight:700;}
+    .sSub{font-size:9px;color:#8a93a2;margin-top:3px;line-height:1.5;}
+    .sChip{display:inline-block;font-size:8.5px;font-weight:800;border-radius:9px;padding:1px 8px;margin-right:4px;}
+    .sChip.on{background:#d6f549;color:#16181c;}
+    .sChip.off{border:1px solid #3a4252;color:#8a93a2;}
+    .gRow{display:flex;align-items:center;gap:7px;padding:7px 2px;border-top:1px solid #262b34;font-size:10px;color:#c9d2dd;}
+    .gRow:first-of-type{border-top:none;}
+    .gMark{width:18px;height:18px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;flex:none;}
+    .gWin{background:#44bb5526;color:#5ecf73;}
+    .gLose{background:#ff555526;color:#ff7777;}
+    .gKD{margin-left:auto;color:#8a93a2;font-size:9px;font-weight:700;}
+    .photoStrip{display:flex;gap:5px;}
+    .ph{width:42px;height:42px;border-radius:7px;background:linear-gradient(150deg,#39432f,#20261c);}
+    .ph.add{background:none;border:1.5px dashed #3a4252;color:#5a6470;display:flex;align-items:center;justify-content:center;font-size:14px;}
+    .resBtns{display:flex;gap:6px;}
+    .resBtn{flex:1;text-align:center;border-radius:9px;border:1.5px solid #3a4252;color:#8a93a2;font-size:10px;font-weight:800;padding:8px 0;}
+    .resBtn.sel{background:#d6f549;border-color:#d6f549;color:#16181c;}
+    .stepRow{display:flex;align-items:center;justify-content:space-between;font-size:11px;color:#dfe5ee;font-weight:700;padding:4px 0;}
+    .step{display:flex;align-items:center;gap:8px;}
+    .stepBtn{width:22px;height:22px;border-radius:11px;border:1.5px solid #d6f54988;color:#d6f549;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:900;}
+    .stepV{font-size:14px;font-weight:900;color:#fff;min-width:18px;text-align:center;}
+    .teamRow{display:flex;gap:5px;}
+    .team{flex:1;height:24px;border-radius:7px;border:1.5px solid;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;}
+    .flagBtn{border:1.5px solid #d6f549;background:#d6f54922;color:#d6f549;border-radius:9px;text-align:center;font-size:10px;font-weight:900;padding:8px 0;}
+    .statGrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;}
+    .statCell{background:#1e2128;border-radius:10px;padding:9px 8px;text-align:center;}
+    .statV{font-size:17px;font-weight:900;color:#fff;}
+    .statV small{font-size:9px;color:#d6f549;font-weight:800;}
+    .statL{font-size:8.5px;color:#8a93a2;font-weight:700;margin-top:2px;}
+    .bars{display:flex;align-items:flex-end;gap:6px;height:58px;padding:2px 4px 0;}
+    .bar{flex:1;background:linear-gradient(180deg,#d6f549,#9db83a);border-radius:3px 3px 0 0;}
+    .barL{display:flex;gap:6px;padding:3px 4px 0;}
+    .barL span{flex:1;text-align:center;font-size:7.5px;color:#5a6470;font-weight:700;}
+    .rankRow{display:flex;align-items:center;gap:7px;padding:6px 2px;border-top:1px solid #262b34;font-size:10px;color:#c9d2dd;font-weight:700;}
+    .rankRow:first-of-type{border-top:none;}
+    .rankNo{color:#d6f549;font-weight:900;width:12px;}
+    .rankCt{margin-left:auto;color:#8a93a2;font-size:9px;}
+    .accRow{display:flex;gap:6px;}
+    .acc{flex:1;background:#1e2128;border-radius:9px;padding:8px 2px;text-align:center;}
+    .accI{font-size:14px;}
+    .accL{font-size:7.5px;color:#aab4c2;font-weight:800;margin-top:3px;}
+    .starTxt{color:#f5c84b;font-size:10px;font-weight:800;letter-spacing:1px;}
+    .shotCap{text-align:center;font-size:10.5px;color:#8a93a2;font-weight:800;padding:8px 0 12px;}
+    .calWk{display:grid;grid-template-columns:repeat(7,1fr);font-size:7px;color:#5a6470;text-align:center;font-weight:800;margin-top:7px;}
+    .calGrid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;margin-top:3px;}
+    .calD{height:19px;display:flex;align-items:center;justify-content:center;font-size:8px;color:#aab4c2;border-radius:5px;}
+    .calD.hit{background:#d6f54926;color:#d6f549;font-weight:900;}
+    .calD.sel{background:#d6f549;color:#16181c;font-weight:900;}
+  </style>
+  <section>
+    <h2 class="secTitle"><span class="marker">画面はこんな感じ。</span></h2>
+    <p class="secLead">記録は数タップ、見返すのは一瞬。（画面はイメージです）</p>
+
+    <div class="shots">
+
+      <!-- ホーム（カレンダー） -->
+      <div class="shot">
+        <div class="shotBar"><span class="ac">🔍</span><span>記録</span><span class="ac">📅</span></div>
+        <div class="shotBody">
+          <div class="sCard">
+            <div class="sRowL" style="justify-content:space-between;"><span class="ac">‹</span><span style="font-size:11px;">2026年5月</span><span class="ac">›</span></div>
+            <div class="calWk"><span>日</span><span>月</span><span>火</span><span>水</span><span>木</span><span>金</span><span>土</span></div>
+            <div class="calGrid">
+              <span class="calD"></span><span class="calD"></span><span class="calD"></span><span class="calD"></span><span class="calD"></span><span class="calD">1</span><span class="calD">2</span>
+              <span class="calD">3</span><span class="calD">4</span><span class="calD">5</span><span class="calD">6</span><span class="calD">7</span><span class="calD">8</span><span class="calD hit">9</span>
+              <span class="calD hit">10</span><span class="calD">11</span><span class="calD">12</span><span class="calD">13</span><span class="calD">14</span><span class="calD">15</span><span class="calD">16</span>
+              <span class="calD">17</span><span class="calD">18</span><span class="calD">19</span><span class="calD">20</span><span class="calD">21</span><span class="calD">22</span><span class="calD">23</span>
+              <span class="calD sel">24</span><span class="calD">25</span><span class="calD">26</span><span class="calD">27</span><span class="calD">28</span><span class="calD">29</span><span class="calD">30</span>
+              <span class="calD">31</span>
+            </div>
+          </div>
+          <div class="sCard">
+            <div class="sRowL" style="font-size:9px;color:#8a93a2;margin-bottom:3px;">5月の出撃（3件）</div>
+            <div class="rankRow"><span style="color:#d6f549;">24日</span>グリーンバレー<span class="rankCt">8戦 5勝3敗</span></div>
+            <div class="rankRow"><span style="color:#d6f549;">10日</span>廃工場アジト<span class="rankCt">10戦 6勝4敗</span></div>
+            <div class="rankRow"><span style="color:#d6f549;">9日</span>森のとりで<span class="rankCt">6戦 2勝4敗</span></div>
+          </div>
+          <div class="sSub" style="text-align:center;">いつ・どこに行ったかひと目で。リスト表示にも切り替えOK</div>
+        </div>
+        <div class="shotCap">ホーム（カレンダー⇄リスト）</div>
+      </div>
+
+      <!-- 1日の記録 -->
+      <div class="shot">
+        <div class="shotBar"><span class="ac">‹</span><span>5/24（日）の記録</span><span class="ac">✎</span></div>
+        <div class="shotBody">
+          <div class="sCard">
+            <div class="sRowL">📍 グリーンバレー</div>
+            <div class="sSub">☀ 晴れ ・ 参加40人（仲間4人） ・ 定例会</div>
+          </div>
+          <div class="sCard">
+            <div class="sRowL" style="justify-content:space-between;"><span>5勝3敗</span><span style="color:#8a93a2;font-size:9px;">12キル / 6デス</span></div>
+            <div class="gRow"><span class="gMark gWin">○</span>第1戦 フラッグ戦 <span style="font-size:9px;">🚩</span><span class="gKD">3 / 1</span></div>
+            <div class="gRow"><span class="gMark gLose">×</span>第2戦 殲滅戦<span class="gKD">1 / 2</span></div>
+            <div class="gRow"><span class="gMark gWin">○</span>第3戦 カウンター戦<span class="gKD">4 / 0</span></div>
+          </div>
+          <div class="sCard">
+            <div class="sRowL" style="font-size:9px;color:#8a93a2;">写真</div>
+            <div class="photoStrip" style="margin-top:6px;">
+              <div class="ph"></div><div class="ph" style="background:linear-gradient(150deg,#4a3f2f,#262017);"></div><div class="ph" style="background:linear-gradient(150deg,#2f3a43,#171d22);"></div><div class="ph add">＋</div>
+            </div>
+          </div>
+        </div>
+        <div class="shotCap">1日の記録</div>
+      </div>
+
+      <!-- ゲーム記録 -->
+      <div class="shot">
+        <div class="shotBar"><span class="ac">キャンセル</span><span>第2戦 / 8戦</span><span class="ac">保存</span></div>
+        <div class="shotBody">
+          <div class="sCard">
+            <div class="sRowL" style="font-size:9px;color:#8a93a2;margin-bottom:6px;">結果</div>
+            <div class="resBtns">
+              <div class="resBtn sel">○ 勝ち</div><div class="resBtn">× 負け</div><div class="resBtn">△ 引分</div>
+            </div>
+          </div>
+          <div class="sCard">
+            <div class="sRowL" style="justify-content:space-between;"><span style="font-size:10px;">ゲーム形式</span><span style="color:#d6f549;font-size:10px;">フラッグ戦 ▾</span></div>
+          </div>
+          <div class="sCard">
+            <div class="stepRow"><span>キル数</span><span class="step"><span class="stepBtn">−</span><span class="stepV">3</span><span class="stepBtn">＋</span></span></div>
+            <div class="stepRow" style="border-top:1px solid #262b34;padding-top:7px;"><span>デス数</span><span class="step"><span class="stepBtn">−</span><span class="stepV">1</span><span class="stepBtn">＋</span></span></div>
+          </div>
+          <div class="sCard">
+            <div class="sRowL" style="font-size:9px;color:#8a93a2;margin-bottom:6px;">チームカラー</div>
+            <div class="teamRow">
+              <div class="team" style="border-color:#f5c84b;background:#f5c84b;color:#16181c;">黄</div>
+              <div class="team" style="border-color:#ff6b6b;color:#ff6b6b;">赤</div>
+              <div class="team" style="border-color:#5aa7ff;color:#5aa7ff;">青</div>
+              <div class="team" style="border-color:#8a93a2;color:#8a93a2;">他</div>
+            </div>
+          </div>
+          <div class="flagBtn">🚩 フラッグゲットした！</div>
+        </div>
+        <div class="shotCap">ゲームごとの記録</div>
+      </div>
+
+      <!-- 統計 -->
+      <div class="shot">
+        <div class="shotBar"><span></span><span>統計</span><span class="ac">⬆</span></div>
+        <div class="shotBody">
+          <div>
+            <span class="sChip off">今月</span><span class="sChip off">3ヶ月</span><span class="sChip off">1年</span><span class="sChip on">全期間</span>
+          </div>
+          <div class="statGrid">
+            <div class="statCell"><div class="statV">24<small>回</small></div><div class="statL">出撃日数</div></div>
+            <div class="statCell"><div class="statV">186<small>戦</small></div><div class="statL">総ゲーム数</div></div>
+            <div class="statCell"><div class="statV">58<small>%</small></div><div class="statL">勝率</div></div>
+            <div class="statCell"><div class="statV">1.43</div><div class="statL">K/D比</div></div>
+          </div>
+          <div class="sCard">
+            <div class="sRowL" style="font-size:9px;color:#8a93a2;">月別の出撃</div>
+            <div class="bars">
+              <div class="bar" style="height:30%;"></div><div class="bar" style="height:55%;"></div><div class="bar" style="height:40%;"></div><div class="bar" style="height:75%;"></div><div class="bar" style="height:60%;"></div><div class="bar" style="height:100%;"></div>
+            </div>
+            <div class="barL"><span>1月</span><span>2月</span><span>3月</span><span>4月</span><span>5月</span><span>6月</span></div>
+          </div>
+          <div class="sCard">
+            <div class="sRowL" style="font-size:9px;color:#8a93a2;margin-bottom:3px;">よく行くフィールド</div>
+            <div class="rankRow"><span class="rankNo">1</span>グリーンバレー<span class="rankCt">12回</span></div>
+            <div class="rankRow"><span class="rankNo">2</span>廃工場アジト<span class="rankCt">6回</span></div>
+            <div class="rankRow"><span class="rankNo">3</span>森のとりで<span class="rankCt">4回</span></div>
+          </div>
+        </div>
+        <div class="shotCap">統計</div>
+      </div>
+
+      <!-- フィールド -->
+      <div class="shot">
+        <div class="shotBar"><span class="ac">‹</span><span>フィールド</span><span class="ac">✎</span></div>
+        <div class="shotBody">
+          <div class="sCard">
+            <div class="sRowL">📍 グリーンバレー</div>
+            <div class="sSub">⭐ <span class="starTxt">★★★★</span>☆ 4.2 ・ 送迎あり</div>
+            <div class="sSub">最寄り: みどり駅 ／ 山あい第二IC</div>
+          </div>
+          <div class="accRow">
+            <div class="acc"><div class="accI">🚃</div><div class="accL">電車</div></div>
+            <div class="acc"><div class="accI">🚗</div><div class="accL">車で行く</div></div>
+            <div class="acc"><div class="accI">☀️</div><div class="accL">天気</div></div>
+            <div class="acc"><div class="accI">🔍</div><div class="accL">検索</div></div>
+          </div>
+          <div class="sCard">
+            <div class="sRowL" style="font-size:9px;color:#8a93a2;margin-bottom:3px;">過去の記録</div>
+            <div class="rankRow"><span>訪問回数</span><span class="rankCt">12回</span></div>
+            <div class="rankRow"><span>1日平均</span><span class="rankCt">8ゲーム</span></div>
+            <div class="rankRow"><span>平均評価</span><span class="rankCt"><span class="starTxt">★</span> 4.2</span></div>
+          </div>
+          <div class="sCard">
+            <div class="sRowL" style="font-size:9px;color:#8a93a2;margin-bottom:3px;">直近の出撃</div>
+            <div class="rankRow"><span>5/24（日）</span><span class="rankCt">8戦 5勝3敗</span></div>
+            <div class="rankRow"><span>4/19（日）</span><span class="rankCt">10戦 6勝4敗</span></div>
+          </div>
+        </div>
+        <div class="shotCap">フィールド管理</div>
+      </div>
+
+    </div>
+    <p class="secLead" style="margin-bottom:0;">← 横にスクロール →</p>
+  </section>
+
   <!-- ════════ できること ════════ -->
   <section>
     <h2 class="secTitle"><span class="marker">サバ活でできること</span></h2>
@@ -182,6 +394,58 @@
     </div>
   </section>
 
+  <!-- ════════ フィールド機能 ════════ -->
+  <section>
+    <h2 class="secTitle"><span class="marker">フィールドにも、強い。</span></h2>
+    <p class="secLead">行き先選びから当日のアクセスまで、アプリの中でスムーズに。</p>
+    <div class="trust fGrid2">
+      <div class="trustItem">
+        <div class="trustIcon">🗾</div>
+        <div class="trustT">全国300以上を内蔵</div>
+        <div class="trustD">フィールドリストから選ぶだけで登録完了。最寄り駅・IC・送迎情報つき</div>
+      </div>
+      <div class="trustItem">
+        <div class="trustIcon">🚗</div>
+        <div class="trustT">アクセスもワンタップ</div>
+        <div class="trustD">電車・車の経路検索、フィールドのウェブ検索もアプリからすぐ呼び出せる</div>
+      </div>
+      <div class="trustItem">
+        <div class="trustIcon">☀️</div>
+        <div class="trustT">天気もチェック</div>
+        <div class="trustD">出撃前にフィールドの天気をワンタップで確認。記録にも天気を残せる</div>
+      </div>
+      <div class="trustItem">
+        <div class="trustIcon">📈</div>
+        <div class="trustT">訪問履歴が育つ</div>
+        <div class="trustD">行った回数・1日の平均ゲーム数・自分のフィールド評価が貯まっていく</div>
+      </div>
+    </div>
+    <p class="moreChips">
+      ほかにも：<span>装備チェックリスト</span><span>記録テンプレート</span><span>カラーテーマ32種</span><span>クイック追加</span><span>検索・日付フィルタ</span><span>CSVエクスポート</span>
+    </p>
+  </section>
+
+  <!-- ════════ 思い出 ════════ -->
+  <section>
+    <h2 class="secTitle"><span class="marker">数字だけじゃない、思い出も。</span></h2>
+    <p class="secLead">戦績の裏には、一緒に遊んだ仲間との1日がある。</p>
+    <div class="featGrid">
+      <div class="feat">
+        <div class="featIcon">👥</div>
+        <div>
+          <div class="featTitle">だれと行ったかも、残る</div>
+          <div class="featDesc">出撃の記録に同行者をタグ付け。「あの仲間と何回行ったか」が積み上がっていきます。同行者の情報は端末内だけに保存され、共有画像にも含まれません。</div>
+        </div>
+      </div>
+      <div class="feat">
+        <div class="featIcon">📷</div>
+        <div>
+          <div class="featTitle">思い出の写真も、いっしょに</div>
+          <div class="featDesc">その日の写真を最大10枚、記録に添えて保存。フィールドのマップ画像も残せるので、日付ごと・フィールドごとに1日をまるごと見返せます。</div>
+        </div>
+      </div>
+    </div>
+  </section>
   <!-- ════════ プロフィールカード ════════ -->
   <section>
     <h2 class="secTitle"><span class="marker">戦績が、カードになる。</span></h2>
@@ -243,7 +507,7 @@
       <div class="trustItem">
         <div class="trustIcon">🆓</div>
         <div class="trustT">基本無料</div>
-        <div class="trustD">記録・統計・カードの基本機能は無料。追加機能は買い切り</div>
+        <div class="trustD">記録・統計・カードの基本機能は無料。追加機能は買い切り（サブスクなし）</div>
       </div>
       <div class="trustItem">
         <div class="trustIcon">📱</div>
