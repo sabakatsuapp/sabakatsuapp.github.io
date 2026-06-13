@@ -6,10 +6,10 @@
 
 | ページ | URL |
 |---|---|
-| ランディングページ | https://sabakatsuapp.github.io/63works.github.io/landingpage.html |
-| プライバシーポリシー | https://sabakatsuapp.github.io/63works.github.io/privacy-policy.html |
-| 特定商取引法に基づく表示 | https://sabakatsuapp.github.io/63works.github.io/tokusho.html |
-| サポート（お問い合わせ・FAQ） | https://sabakatsuapp.github.io/63works.github.io/support.html |
+| ランディングページ | https://sabakatsuapp.github.io/landingpage.html |
+| プライバシーポリシー | https://sabakatsuapp.github.io/privacy-policy.html |
+| 特定商取引法に基づく表示 | https://sabakatsuapp.github.io/tokusho.html |
+| サポート（お問い合わせ・FAQ） | https://sabakatsuapp.github.io/support.html |
 
 ## サバ活について
 
