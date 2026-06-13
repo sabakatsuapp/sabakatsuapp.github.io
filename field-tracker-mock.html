@@ -95,7 +95,7 @@
 </head>
 <body>
 <div class="wrap">
-  <h1><small>サバ活 開発室 — 次期バージョン試作品 v3</small>ルート記録（フィールドトラッカー）</h1>
+  <h1><small>サバ活 開発室 — 次期バージョン試作品 v5</small>ルート記録（フィールドトラッカー）</h1>
   <p class="lead">試合後に「どう動いたか」をマップ写真に指でなぞって残す新機能の試作です。<b style="color:var(--text);">復活ぶんは線を足せます（何本でもOK）。</b>まずは下の「第1戦」をタップ！</p>
 
   <div class="steps">
@@ -162,6 +162,7 @@
           <button class="btn" id="toolDeath">💀 やられた</button>
           <button class="btn" id="toolHit">🎯 ヒット</button>
           <button class="btn" id="toolFlag">🚩 フラッグ</button>
+          <button class="btn" id="lockBtn" style="margin-left:auto;">🔒 ロック</button>
         </div>
         <div class="bar">
           <button class="btn" id="undoBtn">↩ 戻す</button>
@@ -190,14 +191,14 @@
             <button class="big" id="loadPhotoBtn">📷 マップ写真を読み込む</button>
             <button class="small" id="useSampleBtn">写真がない人はこちら（サンプルマップで試す）</button>
           </div>
-          <div class="hint" id="hint" style="display:none;"><span id="hintText">指でなぞって描く。復活したら指を離してまた描けば線を足せます</span></div>
+          <div class="hint" id="hint" style="display:none;"><span id="hintText">指でなぞって描く（復活は指を離してまた描く）。2本指でつまむと拡大・移動</span></div>
         </div>
 
         <div class="legend">
           <span id="leg1"><i class="dot" style="background:var(--p1)"></i>序盤 <b id="pct1"></b></span>
           <span id="leg2"><i class="dot" style="background:var(--p2)"></i>中盤 <b id="pct2"></b></span>
           <span id="leg3"><i class="dot" style="background:var(--p3)"></i>終盤 <b id="pct3"></b></span>
-          <span style="margin-left:auto;"><button class="btn" id="changePhoto" style="padding:5px 10px; font-size:11px;">📷 画像を変える</button></span>
+          <span style="margin-left:auto; display:flex; gap:6px;"><button class="btn" id="zoomReset" style="padding:5px 10px; font-size:11px; display:none;">🔍 全体</button><button class="btn" id="changePhoto" style="padding:5px 10px; font-size:11px;">📷 画像を変える</button></span>
         </div>
         <div class="sliders" id="sliders">
           <p>序盤 ⇔ 中盤 の境界（描いた全部の線を“描いた順”でつなげて配分）</p>
@@ -218,15 +219,17 @@
     <li><b>色分け</b>：描いた全部の線を“描いた順”でつなげて、序盤(青)/中盤(緑)/終盤(紫)に自動配分。下の2本のスライダーで境界を微調整。<b>端まで動かせば1色にもできる</b>（初動でやられた＝青だけ）</li>
     <li><b>↩戻す / ↪やり直し</b>：線やピンを1つずつ取り消し・復活。全消しもあり</li>
     <li><b>ピン</b>：💀やられた／🎯ヒット（取った）／🚩フラッグ。タップで置く・もう一度タップで消す</li>
-    <li><b>完了</b>は右上の「保存」。<b>🖼 画像として保存</b>でPNG書き出し</li>
+    <li><b>拡大</b>：<b>2本指でつまむと拡大・移動</b>。細かい所はズームして描き、引いて全体確認。「🔍 全体」で元に戻る（最大5倍）</li>
+    <li><b>🔒 ロック</b>：描き終わったら押すと<b>編集を固定</b>（誤って線が増えない）。ロック中も拡大・確認はできる。もう一度押すと編集に戻る</li>
+    <li><b>完了</b>は右上の「保存」。<b>🖼 画像として保存</b>でPNG書き出し（ズーム中でも全体が保存されます）</li>
   </div>
 
   <div class="ask">
     <h2>🙏 確かめてほしいこと（感想ください）</h2>
     <li><b>①</b> 復活ぶんを複数の線で描くの、自然だった？（特に第2戦の復活戦で試して）</li>
     <li><b>②</b> 色分けは違和感なかった？ <b>1色だけ（初動死＝青のみ）</b>もスライダーを端まで動かせばできます。試してみて</li>
-    <li><b>③</b> <b style="color:var(--gold);">スマホの画面でちゃんと描けた？「拡大したい」と思う場面はあった？</b>（ここが今一番知りたい）</li>
-    <li><b>④</b> ピン（💀やられた／🎯ヒット／🚩フラッグ）はこれで足りる？／↩戻す・↪やり直しの操作感は？</li>
+    <li><b>③</b> <b style="color:var(--gold);">2本指の拡大・移動で描きやすくなった？</b>（ピンチの効き具合・ぎこちなさを教えて。ここが今一番知りたい）</li>
+    <li><b>④</b> 描いた後に「🔒 ロック」で固定→安心して拡大・確認できる？ ピン（💀🎯🚩）やUndo/Redoの操作感もあれば</li>
   </div>
 
   <p class="foot">サバ活（サバゲー記録アプリ・開発中）の次期バージョン試作品 v2 です。<br>データは保存されません（リロードで消えます）。 © 63works</p>
@@ -276,6 +279,13 @@
   let smooth = true;
   let bg = 'none';
   let photoHref = null;
+  // 表示ズーム（viewBox方式）。view はコンテンツ[0..W, 0..H]内の可視サブ矩形。
+  // ルート座標は0–1正規化で保存するので、いくら拡大・移動しても記録は無傷。
+  const MAXZOOM = 5;
+  let view = { x: 0, y: 0, w: W, h: H };
+  const pointers = new Map(); // pointerId -> {x,y}（スクリーン座標）
+  let pinchPrev = null;       // 直前の2本指 {dist, mid}
+  let locked = false;         // 編集ロック（ONで1本指の描画/ピンを無効・ズームは可）
 
   // history の要素: { kind:'stroke', pts:[{x,y}] } / { kind:'pin', type, x, y }
   const getStrokes = () => work.history.filter((h) => h.kind === 'stroke').map((h) => h.pts);
@@ -317,6 +327,7 @@
     $('s1').value = Math.round(work.f1 * 100);
     $('s2').value = Math.round(work.f2 * 100);
     $('hint').style.display = (bg !== 'none' && work.history.length === 0) ? '' : 'none';
+    setLocked(false);
     render();
     show('scrC');
   }
@@ -324,7 +335,7 @@
   // ── 台紙 ─────────────────────────────────────────────
   function setBg(which, viewH){
     bg = which; H = viewH;
-    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    resetView();
     $('bgPhoto').style.display = which === 'photo' ? '' : 'none';
     $('bgSample').style.display = which === 'sample' ? '' : 'none';
     if (which === 'sample' && !$('bgSample').innerHTML) $('bgSample').innerHTML = SAMPLE_SVG;
@@ -390,7 +401,24 @@
   // ── 幾何・パス ────────────────────────────────────────
   function toNorm(e){
     const r = svg.getBoundingClientRect();
-    return { x: Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)), y: Math.min(1, Math.max(0, (e.clientY - r.top) / r.height)) };
+    const fx = (e.clientX - r.left) / r.width, fy = (e.clientY - r.top) / r.height;
+    // 可視サブ矩形(view)を考慮してコンテンツ0–1へ変換（ズーム中でも座標が正しい）
+    return { x: Math.min(1, Math.max(0, (view.x + fx * view.w) / W)), y: Math.min(1, Math.max(0, (view.y + fy * view.h) / H)) };
+  }
+  function applyView(){ svg.setAttribute('viewBox', view.x + ' ' + view.y + ' ' + view.w + ' ' + view.h); const z = $('zoomReset'); if (z) z.style.display = (view.w < W - 0.5) ? '' : 'none'; }
+  function resetView(){ view = { x: 0, y: 0, w: W, h: H }; applyView(); }
+  function twoFinger(){ const p = [...pointers.values()]; return { dist: Math.hypot(p[0].x - p[1].x, p[0].y - p[1].y), mid: { x: (p[0].x + p[1].x) / 2, y: (p[0].y + p[1].y) / 2 } }; }
+  function applyPinch(prev, cur){
+    const r = svg.getBoundingClientRect();
+    if (r.width === 0 || prev.dist === 0) return;
+    const fcx = view.x + ((prev.mid.x - r.left) / r.width) * view.w;  // prev.mid下のコンテンツ点（固定したい）
+    const fcy = view.y + ((prev.mid.y - r.top) / r.height) * view.h;
+    const k = Math.min(MAXZOOM, Math.max(1, (W / view.w) * (cur.dist / prev.dist)));
+    const nw = W / k, nh = H / k;
+    const nx = fcx - ((cur.mid.x - r.left) / r.width) * nw;
+    const ny = fcy - ((cur.mid.y - r.top) / r.height) * nh;
+    view = { x: Math.min(W - nw, Math.max(0, nx)), y: Math.min(H - nh, Math.max(0, ny)), w: nw, h: nh };
+    applyView();
   }
   const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
   const px = (p, h) => (p.x * W).toFixed(1) + ' ' + (p.y * h).toFixed(1);
@@ -447,14 +475,22 @@
 
   // ── 入力 ─────────────────────────────────────────────
   svg.addEventListener('pointerdown', (e) => {
-    if (!work || bg === 'none' || !e.isPrimary) return;
+    if (!work || bg === 'none') return;
     e.preventDefault();
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size >= 2) {            // 2本目＝ピンチ開始。描きかけは破棄
+      drawing = false; curStroke = null;
+      pinchPrev = twoFinger();
+      render();
+      return;
+    }
+    if (locked) return;                  // ロック中は1本指の描画・ピンを無効（ズーム/パンは2本指で可）
     $('hint').style.display = 'none';
     const p = toNorm(e);
     if (mode !== 'pen') {
       const pins = getPins();
       const hit = pins.findIndex((q) => dist(p, q) < 0.05);
-      if (hit >= 0) { // タップで削除（history から該当ピンを除去）
+      if (hit >= 0) {                    // 既存ピンをタップ＝削除
         let seen = -1;
         work.history = work.history.filter((it) => { if (it.kind === 'pin') { seen++; return seen !== hit; } return true; });
         work.redo = [];
@@ -467,24 +503,37 @@
     }
     drawing = true;
     curStroke = [p];
-    svg.setPointerCapture(e.pointerId);
     render();
   });
   svg.addEventListener('pointermove', (e) => {
-    if (!drawing || !e.isPrimary) return;
+    if (!work || !pointers.has(e.pointerId)) return;
+    pointers.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    if (pointers.size >= 2) {            // 2本指＝ピンチ／パン
+      e.preventDefault();
+      const cur = twoFinger();
+      if (pinchPrev) applyPinch(pinchPrev, cur);
+      pinchPrev = cur;
+      return;
+    }
+    if (!drawing) return;
     e.preventDefault();
     const p = toNorm(e);
     if (dist(p, curStroke[curStroke.length - 1]) > 0.004) { curStroke.push(p); render(); }
   });
   function endStroke(){
-    if (!drawing) return;
-    drawing = false;
-    if (curStroke && curStroke.length >= 3) { work.history.push({ kind: 'stroke', pts: curStroke }); work.redo = []; }
-    curStroke = null;
+    if (drawing && curStroke && curStroke.length >= 3) { work.history.push({ kind: 'stroke', pts: curStroke }); work.redo = []; }
+    drawing = false; curStroke = null;
     render();
   }
-  svg.addEventListener('pointerup', endStroke);
-  svg.addEventListener('pointercancel', endStroke);
+  function onPointerUp(e){
+    if (!pointers.has(e.pointerId)) return;
+    pointers.delete(e.pointerId);
+    if (pointers.size < 2) pinchPrev = null;
+    if (pointers.size === 0) endStroke();
+  }
+  // 指を画面外で離しても確実に拾えるよう window で受ける
+  window.addEventListener('pointerup', onPointerUp);
+  window.addEventListener('pointercancel', onPointerUp);
 
   // ── 描画 ─────────────────────────────────────────────
   function render(){
@@ -509,8 +558,8 @@
     $('pct1').textContent = Math.round(a1 * 100) + '%';
     $('pct2').textContent = Math.round(a2 * 100) + '%';
     $('pct3').textContent = Math.round(a3 * 100) + '%';
-    $('undoBtn').disabled = work.history.length === 0;
-    $('redoBtn').disabled = work.redo.length === 0;
+    $('undoBtn').disabled = locked || work.history.length === 0;
+    $('redoBtn').disabled = locked || work.redo.length === 0;
   }
 
   // ── スライダー ────────────────────────────────────────
@@ -529,12 +578,24 @@
   $('undoBtn').onclick = () => { if (work.history.length) { work.redo.push(work.history.pop()); render(); } };
   $('redoBtn').onclick = () => { if (work.redo.length) { work.history.push(work.redo.pop()); render(); } };
   $('clearBtn').onclick = () => { clearAll(); render(); };
+  $('zoomReset').onclick = resetView;
+  function setLocked(v){
+    locked = v;
+    $('lockBtn').textContent = v ? '🔓 編集する' : '🔒 ロック';
+    $('lockBtn').classList.toggle('on', v);
+    ['toolPen', 'toolDeath', 'toolHit', 'toolFlag', 'smoothOn', 'smoothOff', 'clearBtn'].forEach((id) => { $(id).disabled = v; });
+    $('s1').disabled = v; $('s2').disabled = v;
+    $('sliders').style.opacity = v ? '0.45' : '';
+    render();
+  }
+  $('lockBtn').onclick = () => setLocked(!locked);
 
   // ── 画像として保存 ────────────────────────────────────
   $('exportBtn').onclick = () => {
     $('hint').style.display = 'none';
     const clone = svg.cloneNode(true);
     clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    clone.setAttribute('viewBox', '0 0 ' + W + ' ' + H); // ズーム中でも全体を書き出す
     const url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(clone));
     const img = new Image();
     img.onload = () => {
