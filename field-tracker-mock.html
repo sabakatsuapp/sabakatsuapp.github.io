@@ -10,7 +10,6 @@
     --text:#F2F4F8; --sub:#9AA3B2;
     --accent:#FF5A47; --lime:#B8E62E; --gold:#FFD700;
     --p1:#3D7BFF; --p2:#37C871; --p3:#B05CFF;
-    --win:#37C871;
   }
   *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
   body{background:#0D0E12; color:var(--text); font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,sans-serif; padding:16px 12px 48px; display:flex; justify-content:center;}
@@ -19,13 +18,11 @@
   h1 small{display:block; font-size:11px; color:var(--lime); font-weight:700; margin-bottom:2px; letter-spacing:1px;}
   .lead{color:var(--sub); font-size:12px; line-height:1.7; margin:8px 0 12px;}
 
-  /* ── ステップ表示 ── */
   .steps{display:flex; align-items:center; gap:4px; margin-bottom:8px; font-size:10.5px; font-weight:700;}
   .step{color:#5A6272; border:1.2px solid var(--line); border-radius:99px; padding:4px 9px;}
   .step.cur{color:var(--lime); border-color:var(--lime); background:rgba(184,230,46,.1);}
   .steps .ar{color:#5A6272;}
 
-  /* ── アプリ枠 ── */
   .appframe{border:2.5px solid #3A4150; border-radius:18px; overflow:hidden; background:var(--bg);}
   .screen[hidden]{display:none;}
   .nav{display:flex; align-items:center; justify-content:space-between; padding:13px 12px 11px; background:#1C1C1F; border-bottom:1px solid var(--line);}
@@ -36,7 +33,6 @@
   .sh{color:var(--sub); font-size:11px; margin:10px 2px 5px;}
   .hintbar{display:flex; align-items:center; gap:6px; background:rgba(184,230,46,.1); border:1.2px dashed var(--lime); color:var(--lime); font-size:11.5px; font-weight:700; border-radius:10px; padding:7px 10px; margin-bottom:10px;}
 
-  /* 画面A: 1日の記録 */
   .fieldName{font-size:18px; font-weight:bold;}
   .meta{color:var(--sub); font-size:11px;}
   .stars{color:var(--gold); font-size:12px; letter-spacing:2px; margin-top:2px;}
@@ -44,12 +40,10 @@
   .gcard:active{background:#262b35;}
   .gcard .tx{flex:1;}
   .gcard .t1{font-size:13.5px; font-weight:bold;}
-  .gcard .t1 .res{font-weight:900;}
   .gcard .t2{font-size:11px; color:var(--sub); margin-top:2px;}
   .routeBadge{font-size:10px; font-weight:700; color:var(--p2); border:1.2px solid var(--p2); border-radius:99px; padding:2px 7px;}
   .chev{color:var(--sub); font-size:16px;}
 
-  /* 画面B: ゲーム記録 */
   .sect{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px 12px; margin-bottom:10px;}
   .row{display:flex; align-items:center; justify-content:space-between; min-height:30px; font-size:13px;}
   .row .l{color:var(--sub); font-size:12px;}
@@ -57,23 +51,29 @@
   .newTag{position:absolute; top:-9px; left:12px; background:var(--lime); color:#1A2005; font-size:9.5px; font-weight:900; border-radius:99px; padding:2px 8px; letter-spacing:1px;}
   .drawBtn{display:block; width:100%; background:var(--accent); color:#fff; text-align:center; font-size:13.5px; font-weight:800; border:none; border-radius:999px; padding:12px 0; margin-top:8px; cursor:pointer;}
   .thumbWrap{display:flex; gap:10px; align-items:center; margin-top:8px; cursor:pointer;}
-  .thumbWrap svg{width:110px; height:auto; border-radius:8px; border:1px solid var(--line); display:block;}
+  .thumbWrap svg{width:110px; height:auto; border-radius:8px; border:1px solid var(--line); display:block; background:#10120F;}
   .thumbWrap .cap{flex:1; font-size:11.5px; color:var(--sub); line-height:1.7;}
   .thumbWrap .cap b{color:var(--lime);}
   .grayNote{color:#5A6272; font-size:10px; margin-top:2px;}
 
-  /* 画面C: エディタ */
-  .bar{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px;}
+  .bar{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; align-items:center;}
   .btn{border:1.5px solid var(--line); background:var(--card); color:var(--sub); border-radius:999px; padding:8px 12px; font-size:12px; font-weight:700; cursor:pointer; user-select:none;}
   .btn.on{border-color:var(--lime); color:var(--lime); background:rgba(184,230,46,.1);}
-  .btn.danger{margin-left:auto;}
+  .btn.right{margin-left:auto;}
   .seg{display:flex; border:1.5px solid var(--line); border-radius:999px; overflow:hidden;}
   .seg .btn{border:none; border-radius:0; background:transparent;}
   .seg .btn.on{background:rgba(184,230,46,.14);}
-  .canvas-wrap{position:relative; border:2px solid #3A4150; border-radius:14px; overflow:hidden; touch-action:none; background:#1B2417;}
+  .wideBtn{display:block; width:100%; border:1.5px solid var(--lime); background:rgba(184,230,46,.08); color:var(--lime); border-radius:999px; padding:11px 0; font-size:13px; font-weight:800; text-align:center; margin-top:10px; cursor:pointer;}
+
+  .canvas-wrap{position:relative; border:2px solid #3A4150; border-radius:14px; overflow:hidden; touch-action:none; background:#10120F;}
   svg{display:block; width:100%; height:auto;}
   .hint{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;}
   .hint span{background:rgba(13,14,18,.78); border:1.5px dashed var(--lime); color:var(--lime); font-size:13px; font-weight:700; padding:10px 16px; border-radius:12px;}
+  .starter{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; background:rgba(13,14,18,.6); padding:20px;}
+  .starter p{color:var(--sub); font-size:12px; text-align:center; line-height:1.7;}
+  .starter .big{background:var(--accent); color:#fff; border:none; border-radius:999px; padding:13px 22px; font-size:14px; font-weight:800; cursor:pointer;}
+  .starter .small{background:transparent; color:var(--sub); border:1.5px solid var(--line); border-radius:999px; padding:9px 16px; font-size:12px; font-weight:700; cursor:pointer;}
+
   .legend{display:flex; gap:8px; margin:10px 0 4px; font-size:11.5px; font-weight:700;}
   .legend span{display:flex; align-items:center; gap:5px; color:var(--sub);}
   .dot{width:12px; height:12px; border-radius:3px; display:inline-block;}
@@ -82,7 +82,6 @@
   .sliders p{font-size:11px; color:var(--sub); margin-bottom:2px;}
   .sliders input{width:100%; accent-color:var(--lime); margin-bottom:8px;}
 
-  /* 説明・フィードバック */
   .howto{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-top:14px;}
   .howto h2{font-size:13px; color:var(--lime); margin-bottom:6px;}
   .howto li{list-style:none; font-size:12px; color:#C9D1DE; line-height:1.8;}
@@ -96,9 +95,8 @@
 <body>
 <div class="wrap">
   <h1><small>サバ活 開発室 — 次期バージョン試作品</small>ルート記録（フィールドトラッカー）</h1>
-  <p class="lead">試合後に「どう動いたか」をマップに指でなぞって残す新機能の試作です。<b style="color:var(--text);">本物のアプリと同じ画面の流れ</b>で体験できます。まずは下の「第1戦」をタップ！</p>
+  <p class="lead">試合後に「どう動いたか」をマップ写真に指でなぞって残す新機能の試作です。<b style="color:var(--text);">本物のアプリと同じ画面の流れ</b>で体験できます。まずは下の「第1戦」をタップ！</p>
 
-  <!-- ステップ表示 -->
   <div class="steps">
     <span class="step cur" id="st1">① 1日の記録</span><span class="ar">▸</span>
     <span class="step" id="st2">② ゲーム記録</span><span class="ar">▸</span>
@@ -107,7 +105,7 @@
 
   <div class="appframe">
 
-    <!-- ══ 画面A: 1日の記録（閲覧） ══ -->
+    <!-- ══ 画面A: 1日の記録 ══ -->
     <div class="screen" id="scrA">
       <div class="nav"><span class="side">‹ 記録</span><span class="ttl">1日の記録</span><span class="side right">✎</span></div>
       <div class="body">
@@ -118,7 +116,7 @@
         <div class="hintbar">💡 ゲームの行をタップすると開きます</div>
         <div class="gcard" data-g="0">
           <div class="tx">
-            <p class="t1">第1戦 殲滅戦　<span class="res" style="color:var(--win);">WIN</span></p>
+            <p class="t1">第1戦 殲滅戦　<span style="color:var(--p2); font-weight:900;">WIN</span></p>
             <p class="t2">キル 2 ／ デス 1 ／ セミ</p>
           </div>
           <span class="routeBadge" id="badge0" style="display:none;">ルートあり</span>
@@ -126,13 +124,13 @@
         </div>
         <div class="gcard" data-g="1">
           <div class="tx">
-            <p class="t1">第2戦 フラッグ戦　<span class="res" style="color:var(--accent);">LOSE</span></p>
+            <p class="t1">第2戦 フラッグ戦　<span style="color:var(--accent); font-weight:900;">LOSE</span></p>
             <p class="t2">キル 1 ／ デス 2 ／ セミ</p>
           </div>
           <span class="routeBadge" id="badge1" style="display:none;">ルートあり</span>
           <span class="chev">›</span>
         </div>
-        <p class="grayNote">※ このページは試作デモです。ゲームの中身は架空データ。</p>
+        <p class="grayNote">※ 試作デモです。ゲームの中身は架空データ。</p>
       </div>
     </div>
 
@@ -146,8 +144,6 @@
           <div class="row"><span class="l">キル / デス</span><span id="gKD">2 / 1</span></div>
           <p class="grayNote">↑ ここまでは今のアプリにもある項目（簡略表示）</p>
         </div>
-
-        <!-- 新設セクション -->
         <div class="sect newSect">
           <span class="newTag">NEW</span>
           <div class="row"><span class="l">ルート / ポジション</span><span class="grayNote">任意</span></div>
@@ -156,7 +152,7 @@
             <p class="grayNote" style="text-align:center; margin-top:6px;">描かなくてもOK。気が向いた試合だけ</p>
           </div>
           <div id="routeThumb" class="thumbWrap" style="display:none;">
-            <svg id="thumbSvg" viewBox="0 0 1000 1150"></svg>
+            <svg id="thumbSvg"></svg>
             <p class="cap"><b>記録済み！</b><br>サムネイルをタップで再編集できます</p>
           </div>
         </div>
@@ -170,91 +166,42 @@
       <div class="body">
         <div class="bar">
           <button class="btn on" id="toolPen">✏️ ルート</button>
-          <button class="btn" id="toolPin">💀 やられた</button>
-          <button class="btn danger" id="clearBtn">全消し</button>
+          <button class="btn" id="toolDeath">💀 やられた</button>
+          <button class="btn" id="toolFlag">🚩 フラッグ</button>
         </div>
         <div class="bar">
           <div class="seg">
             <button class="btn on" id="smoothOn">なめらか補正</button>
             <button class="btn" id="smoothOff">生の線</button>
           </div>
-          <div class="seg">
-            <button class="btn on" id="mapField">マップ</button>
-            <button class="btn" id="mapGrid">グリッド</button>
-            <button class="btn" id="mapPhoto">📷</button>
-          </div>
-          <input type="file" id="filePick" accept="image/*" style="display:none;">
+          <button class="btn" id="undoPin">↩ ピンを戻す</button>
+          <button class="btn right" id="clearBtn">全消し</button>
         </div>
+        <input type="file" id="filePick" accept="image/*" style="display:none;">
 
         <div class="canvas-wrap" id="cw">
-          <svg id="cv" viewBox="0 0 1000 1150" xmlns="http://www.w3.org/2000/svg">
-            <g id="bgField">
-              <rect width="1000" height="1150" fill="#243520"/>
-              <rect x="18" y="18" width="964" height="1114" fill="none" stroke="#4A5B40" stroke-width="5" stroke-dasharray="18 10" rx="18"/>
-              <path d="M120 1060 C 240 880, 200 700, 360 580 S 620 420, 700 240" stroke="#3A4A30" stroke-width="46" fill="none" stroke-linecap="round"/>
-              <path d="M850 1020 C 760 860, 800 700, 640 600" stroke="#3A4A30" stroke-width="40" fill="none" stroke-linecap="round"/>
-              <g fill="#1C2B16">
-                <circle cx="180" cy="220" r="74"/><circle cx="265" cy="170" r="56"/><circle cx="120" cy="320" r="60"/>
-                <circle cx="840" cy="420" r="80"/><circle cx="900" cy="540" r="62"/><circle cx="770" cy="520" r="52"/>
-                <circle cx="200" cy="760" r="66"/><circle cx="300" cy="830" r="54"/><circle cx="130" cy="860" r="48"/>
-                <circle cx="860" cy="860" r="58"/><circle cx="780" cy="940" r="48"/>
-              </g>
-              <g fill="#28391F">
-                <circle cx="200" cy="240" r="40"/><circle cx="850" cy="440" r="44"/><circle cx="230" cy="790" r="36"/><circle cx="840" cy="880" r="32"/>
-              </g>
-              <g fill="#5A4632" stroke="#3E3022" stroke-width="3">
-                <rect x="430" y="300" width="90" height="26" rx="4" transform="rotate(18 475 313)"/>
-                <rect x="560" y="370" width="90" height="26" rx="4" transform="rotate(-12 605 383)"/>
-                <rect x="380" y="700" width="100" height="26" rx="4" transform="rotate(-20 430 713)"/>
-                <rect x="560" y="760" width="90" height="26" rx="4" transform="rotate(10 605 773)"/>
-                <rect x="300" y="480" width="84" height="26" rx="4" transform="rotate(6 342 493)"/>
-                <rect x="640" y="540" width="84" height="26" rx="4" transform="rotate(-6 682 553)"/>
-              </g>
-              <g>
-                <rect x="690" y="120" width="92" height="92" fill="#4A3A28" stroke="#2E2418" stroke-width="4" rx="6"/>
-                <rect x="706" y="136" width="60" height="60" fill="#5A4632" rx="4"/>
-                <text x="736" y="248" font-size="24" fill="#8A9470" text-anchor="middle">やぐら</text>
-              </g>
-              <g fill="#6B5A3E" stroke="#4A3E2A" stroke-width="2.5">
-                <ellipse cx="470" cy="585" rx="34" ry="15"/><ellipse cx="510" cy="572" rx="34" ry="15"/><ellipse cx="490" cy="557" rx="30" ry="13"/>
-              </g>
-              <text x="490" y="630" font-size="22" fill="#8A9470" text-anchor="middle">土嚢</text>
-              <g>
-                <circle cx="500" cy="440" r="30" fill="none" stroke="#C9B458" stroke-width="4" stroke-dasharray="8 6"/>
-                <line x1="500" y1="440" x2="500" y2="392" stroke="#C9B458" stroke-width="5"/>
-                <path d="M500 392 L540 404 L500 416 Z" fill="#FFD700"/>
-                <text x="500" y="498" font-size="22" fill="#C9B458" text-anchor="middle">センターフラッグ</text>
-              </g>
-              <g>
-                <rect x="380" y="44" width="240" height="56" rx="12" fill="rgba(245,211,40,.16)" stroke="#F5D328" stroke-width="3"/>
-                <text x="500" y="80" font-size="26" fill="#F5D328" text-anchor="middle" font-weight="bold">黄スタート</text>
-                <rect x="380" y="1050" width="240" height="56" rx="12" fill="rgba(255,90,71,.14)" stroke="#FF5A47" stroke-width="3"/>
-                <text x="500" y="1086" font-size="26" fill="#FF5A47" text-anchor="middle" font-weight="bold">赤スタート</text>
-              </g>
-              <text x="40" y="1124" font-size="20" fill="#5A6B50">グリーンバレー（架空フィールド）</text>
-            </g>
-            <g id="bgGrid" style="display:none;">
-              <rect width="1000" height="1150" fill="#1A1D24"/>
-              <g stroke="#2A3040" stroke-width="2">
-                <path d="M100 0V1150 M200 0V1150 M300 0V1150 M400 0V1150 M500 0V1150 M600 0V1150 M700 0V1150 M800 0V1150 M900 0V1150"/>
-                <path d="M0 100H1000 M0 200H1000 M0 300H1000 M0 400H1000 M0 500H1000 M0 600H1000 M0 700H1000 M0 800H1000 M0 900H1000 M0 1000H1000 M0 1100H1000"/>
-              </g>
-              <text x="500" y="585" font-size="26" fill="#4A5468" text-anchor="middle">マップ画像がないフィールド用の白紙キャンバス</text>
-            </g>
+          <svg id="cv" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
             <g id="bgPhoto" style="display:none;">
-              <rect width="1000" height="1150" fill="#0D0E12"/>
-              <image id="photoImg" width="1000" height="1150" preserveAspectRatio="xMidYMid meet"/>
+              <rect id="photoBack" width="1000" height="1000" fill="#10120F"/>
+              <image id="photoImg" width="1000" height="1000" preserveAspectRatio="xMidYMid meet"/>
             </g>
+            <g id="bgSample" style="display:none;"></g>
             <g id="routeLayer"></g>
             <g id="pinLayer"></g>
           </svg>
-          <div class="hint" id="hint"><span>マップを指でなぞってルートを描いてみて！</span></div>
+          <div class="starter" id="starter">
+            <p><b style="color:var(--text);">最初にフィールドのマップ写真を読み込みます</b><br>看板を撮った写真でOK。縦でも横でも、写真に合わせて描画エリアが変わります。<br><span style="color:#6B7383;">（端末内で処理・どこにも送信されません）</span></p>
+            <button class="big" id="loadPhotoBtn">📷 マップ写真を読み込む</button>
+            <button class="small" id="useSampleBtn">写真がない人はこちら（サンプルマップで試す）</button>
+          </div>
+          <div class="hint" id="hint" style="display:none;"><span>マップを指でなぞってルートを描いてみて！</span></div>
         </div>
 
         <div class="legend">
           <span><i class="dot" style="background:var(--p1)"></i>序盤 <b id="pct1"></b></span>
           <span><i class="dot" style="background:var(--p2)"></i>中盤 <b id="pct2"></b></span>
           <span><i class="dot" style="background:var(--p3)"></i>終盤 <b id="pct3"></b></span>
+          <span style="margin-left:auto;"><button class="btn" id="changePhoto" style="padding:5px 10px; font-size:11px;">📷 画像を変える</button></span>
         </div>
         <div class="sliders" id="sliders">
           <p>序盤 ⇔ 中盤 の境界（記憶に合わせて微調整）</p>
@@ -262,6 +209,7 @@
           <p>中盤 ⇔ 終盤 の境界</p>
           <input type="range" id="s2" min="5" max="95" value="67">
         </div>
+        <button class="wideBtn" id="exportBtn" style="display:none;">🖼 この内容を画像として保存</button>
       </div>
     </div>
 
@@ -270,17 +218,18 @@
   <div class="howto">
     <h2>画面の流れ（本物のアプリと同じ導線です）</h2>
     <li><b>① 1日の記録</b>：その日の出撃を開くとゲームが並んでいる（ここまでは今のサバ活と同じ）</li>
-    <li><b>② ゲーム記録</b>：新設の「ルート / ポジション」セクションから <b>✏️ ルートを描く</b></li>
-    <li><b>③ エディタ</b>：マップを指でなぞる→<b>指を離すと完成</b>→序盤/中盤/終盤に自動色分け→保存</li>
-    <li>保存するとゲーム記録に<b>サムネイル</b>が付き、一覧にも「ルートあり」バッジが出ます</li>
-    <li><b>💀 やられた</b>：タップでピン追加・再タップで削除。<b>📷</b>：自分のフィールドのマップ写真でも試せます（端末内で処理・送信されません）</li>
+    <li><b>② ゲーム記録</b>：新設「ルート / ポジション」の <b>✏️ ルートを描く</b> をタップ</li>
+    <li><b>③ エディタ</b>：マップ写真を読み込む → 指でなぞる → <b>指を離すと完成</b> → 序盤/中盤/終盤に自動色分け → 保存</li>
+    <li><b>ピン</b>：💀やられた／🚩フラッグゲット。タップで置く・<b>ピンをもう一度タップで消す</b>・「↩ ピンを戻す」で直前のピンを取り消し</li>
+    <li><b>🖼 画像として保存</b>：描いた内容をPNGで書き出し（端末によっては新しいタブで開くので長押しで保存）</li>
+    <li>※ 本物のアプリでは、フィールドに登録済みのマップ画像が<b>自動で台紙に入る</b>ので毎回の読み込みは不要です</li>
   </div>
 
   <div class="ask">
     <h2>🙏 確かめてほしいこと（感想ください）</h2>
     <li><b>①</b> 描き味は自然？「なめらか補正」と「生の線」どっちが好き？</li>
     <li><b>②</b> 序盤/中盤/終盤の自動色分け＋スライダー調整、直感的に使えた？</li>
-    <li><b>③</b> 💀のほかに欲しいピンある？（スタート地点・キル・フラッグを検討中）</li>
+    <li><b>③</b> ピンは💀と🚩で足りる？（スタート地点・キル地点も検討中）</li>
     <li><b>④</b> この画面の流れで迷わなかった？「描くまでが遠い」と感じたら教えて！</li>
   </div>
 
@@ -291,25 +240,47 @@
 (function(){
   const $ = (id) => document.getElementById(id);
   const svg = $('cv');
-  const routeLayer = $('routeLayer');
-  const pinLayer = $('pinLayer');
-  const W = 1000, H = 1150;
+  const W = 1000;
+  let H = 1000; // 画像のアスペクト比に合わせて可変
   const C = ['#3D7BFF', '#37C871', '#B05CFF'];
+  const PIN_EMOJI = { death: '💀', flag: '🚩' };
   const GAMES = [
     { title: '第1戦', res: 'WIN', type: '殲滅戦', kd: '2 / 1', resColor: '#37C871' },
     { title: '第2戦', res: 'LOSE', type: 'フラッグ戦', kd: '1 / 2', resColor: '#FF5A47' },
   ];
 
-  // ── 状態 ─────────────────────────────────────────────
-  const routes = [null, null];      // ゲームごとの保存済みルート
-  let curGame = 0;
-  let work = null;                  // 編集中の作業コピー {pts, pins, f1, f2, bg}
-  let drawing = false;
-  let mode = 'pen';
-  let smooth = true;
-  let currentBg = 'mapField';
+  // サンプルマップ（写真が手元にない人用。横長 1000×750）
+  const SAMPLE_H = 750;
+  const SAMPLE_SVG =
+    '<rect width="1000" height="750" fill="#243520"/>' +
+    '<rect x="16" y="16" width="968" height="718" fill="none" stroke="#4A5B40" stroke-width="5" stroke-dasharray="16 9" rx="14"/>' +
+    '<path d="M90 660 C 230 560, 240 420, 420 360 S 720 260, 880 130" stroke="#3A4A30" stroke-width="40" fill="none" stroke-linecap="round"/>' +
+    '<g fill="#1C2B16"><circle cx="170" cy="170" r="64"/><circle cx="260" cy="130" r="46"/><circle cx="840" cy="560" r="68"/><circle cx="740" cy="620" r="50"/><circle cx="160" cy="560" r="52"/></g>' +
+    '<g fill="#5A4632" stroke="#3E3022" stroke-width="3">' +
+    '<rect x="420" y="200" width="84" height="24" rx="4" transform="rotate(14 462 212)"/>' +
+    '<rect x="560" y="430" width="84" height="24" rx="4" transform="rotate(-12 602 442)"/>' +
+    '<rect x="300" y="430" width="80" height="24" rx="4" transform="rotate(8 340 442)"/></g>' +
+    '<circle cx="500" cy="330" r="26" fill="none" stroke="#C9B458" stroke-width="4" stroke-dasharray="8 6"/>' +
+    '<line x1="500" y1="330" x2="500" y2="288" stroke="#C9B458" stroke-width="5"/>' +
+    '<path d="M500 288 L536 299 L500 310 Z" fill="#FFD700"/>' +
+    '<text x="500" y="382" font-size="20" fill="#C9B458" text-anchor="middle">センターフラッグ</text>' +
+    '<rect x="40" y="320" width="56" height="120" rx="10" fill="rgba(245,211,40,.16)" stroke="#F5D328" stroke-width="3"/>' +
+    '<text x="68" y="390" font-size="20" fill="#F5D328" text-anchor="middle" writing-mode="tb">黄スタート</text>' +
+    '<rect x="904" y="320" width="56" height="120" rx="10" fill="rgba(255,90,71,.14)" stroke="#FF5A47" stroke-width="3"/>' +
+    '<text x="932" y="390" font-size="20" fill="#FF5A47" text-anchor="middle" writing-mode="tb">赤スタート</text>' +
+    '<text x="32" y="726" font-size="18" fill="#5A6B50">サンプルマップ（架空フィールド）</text>';
 
-  // ── 画面遷移 ─────────────────────────────────────────
+  // ── 状態 ──────────────────────────────────────────────
+  const routes = [null, null]; // ゲームごと {pts,pins,f1,f2,bg,viewH,href}
+  let curGame = 0;
+  let work = null;             // 編集中 {pts, pins[{type,x,y}], f1, f2}
+  let drawing = false;
+  let mode = 'pen';            // 'pen' | 'death' | 'flag'
+  let smooth = true;
+  let bg = 'none';             // 'none' | 'sample' | 'photo'
+  let photoHref = null;
+
+  // ── 画面遷移 ──────────────────────────────────────────
   function show(which){
     ['scrA', 'scrB', 'scrC'].forEach((s, i) => {
       $(s).hidden = s !== which;
@@ -325,33 +296,88 @@
   $('cancelEdit').onclick = () => { renderGameScreen(); show('scrB'); };
   $('saveEdit').onclick = () => {
     routes[curGame] = (work.pts.length >= 2 || work.pins.length > 0)
-      ? { pts: work.pts, pins: work.pins, f1: work.f1, f2: work.f2, bg: currentBg }
+      ? { pts: work.pts, pins: work.pins, f1: work.f1, f2: work.f2, bg, viewH: H, href: photoHref }
       : null;
     renderGameScreen(); show('scrB');
   };
 
   function openEditor(){
     const saved = routes[curGame];
-    work = saved
-      ? { pts: saved.pts.slice(), pins: saved.pins.slice(), f1: saved.f1, f2: saved.f2 }
-      : { pts: [], pins: [], f1: 1/3, f2: 2/3 };
-    if (saved) setMap(saved.bg);
+    if (saved) {
+      work = { pts: saved.pts.slice(), pins: saved.pins.slice(), f1: saved.f1, f2: saved.f2 };
+      if (saved.bg === 'photo' && saved.href) { photoHref = saved.href; setBg('photo', saved.viewH); }
+      else if (saved.bg === 'sample') setBg('sample', SAMPLE_H);
+    } else {
+      work = { pts: [], pins: [], f1: 1/3, f2: 2/3 };
+    }
     $('s1').value = Math.round(work.f1 * 100);
     $('s2').value = Math.round(work.f2 * 100);
-    $('hint').style.display = work.pts.length ? 'none' : '';
+    updateStarter();
+    $('hint').style.display = (bg !== 'none' && !work.pts.length) ? '' : 'none';
     render();
     show('scrC');
   }
 
-  // ── 画面A/Bの描画 ─────────────────────────────────────
+  // ── 台紙（写真のアスペクト比に合わせて viewBox を可変） ──
+  function setBg(which, viewH){
+    bg = which;
+    H = viewH;
+    svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
+    $('bgPhoto').style.display = which === 'photo' ? '' : 'none';
+    $('bgSample').style.display = which === 'sample' ? '' : 'none';
+    if (which === 'sample' && !$('bgSample').innerHTML) $('bgSample').innerHTML = SAMPLE_SVG;
+    if (which === 'photo') {
+      $('photoBack').setAttribute('height', H);
+      $('photoImg').setAttribute('height', H);
+      $('photoImg').setAttribute('href', photoHref);
+    }
+    updateStarter();
+  }
+  function updateStarter(){ $('starter').style.display = bg === 'none' ? '' : 'none'; }
+
+  function pickPhoto(){ $('filePick').click(); }
+  $('loadPhotoBtn').onclick = pickPhoto;
+  $('changePhoto').onclick = pickPhoto;
+  $('useSampleBtn').onclick = () => {
+    resetWork();
+    setBg('sample', SAMPLE_H);
+    $('hint').style.display = '';
+    render();
+  };
+  $('filePick').addEventListener('change', (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    const reader = new FileReader();
+    reader.onload = () => {
+      const img = new Image();
+      img.onload = () => {
+        photoHref = reader.result;
+        // 縦横どちらの写真でも、その比率どおりの描画エリアにする（極端な比率は安全のためクランプ）
+        const ratio = Math.min(2.4, Math.max(0.4, img.naturalHeight / img.naturalWidth));
+        resetWork();
+        setBg('photo', Math.round(W * ratio));
+        $('hint').style.display = '';
+        render();
+      };
+      img.src = reader.result;
+    };
+    reader.readAsDataURL(f);
+    e.target.value = ''; // 同じファイルの再選択も発火させる
+  });
+  function resetWork(){
+    if (!work) return;
+    work.pts = []; work.pins = []; work.f1 = 1/3; work.f2 = 2/3;
+    $('s1').value = 33; $('s2').value = 67;
+  }
+
+  // ── 画面A/B ──────────────────────────────────────────
   function renderDayScreen(){
     routes.forEach((r, i) => { $('badge' + i).style.display = r ? '' : 'none'; });
   }
   function renderGameScreen(){
     const g = GAMES[curGame];
     $('gameTitle').textContent = g.title;
-    $('gRes').textContent = g.res;
-    $('gRes').style.color = g.resColor;
+    $('gRes').textContent = g.res; $('gRes').style.color = g.resColor;
     $('gType').textContent = g.type;
     $('gKD').textContent = g.kd;
     const r = routes[curGame];
@@ -360,19 +386,25 @@
     if (r) renderThumb(r);
   }
   function renderThumb(r){
-    // 台紙ごと縮小コピー（id重複を避けるため id 属性を除去）
-    const bgHtml = $(r.bg === 'mapField' ? 'bgField' : r.bg === 'mapGrid' ? 'bgGrid' : 'bgPhoto')
-      .outerHTML.replace(/\s(id|style)="[^"]*"/g, '');
-    let routeHtml = '';
+    const h = r.viewH;
+    let bgHtml = '';
+    if (r.bg === 'photo' && r.href) {
+      bgHtml = '<rect width="' + W + '" height="' + h + '" fill="#10120F"/>' +
+        '<image href="' + r.href + '" width="' + W + '" height="' + h + '" preserveAspectRatio="xMidYMid meet"/>';
+    } else if (r.bg === 'sample') {
+      bgHtml = SAMPLE_SVG;
+    }
+    let html = bgHtml;
     if (r.pts.length >= 2) {
       const segs = splitSegs(r.pts, r.f1, r.f2);
-      routeHtml += pathHtml(pathStr(r.pts), 'rgba(0,0,0,.5)', 22);
-      segs.forEach((seg, k) => { if (seg.length >= 2) routeHtml += pathHtml(pathStr(seg), C[k], 14); });
+      html += pathHtml(pathStr(r.pts, h), 'rgba(0,0,0,.5)', 22);
+      segs.forEach((seg, k) => { if (seg.length >= 2) html += pathHtml(pathStr(seg, h), C[k], 14); });
     }
-    const pinHtml = r.pins.map((p) =>
-      '<text x="' + p.x * W + '" y="' + (p.y * H + 20) + '" font-size="64" text-anchor="middle" paint-order="stroke" stroke="rgba(0,0,0,.6)" stroke-width="8">💀</text>'
+    html += r.pins.map((p) =>
+      '<text x="' + p.x * W + '" y="' + (p.y * h + 22) + '" font-size="64" text-anchor="middle" paint-order="stroke" stroke="rgba(0,0,0,.6)" stroke-width="8">' + PIN_EMOJI[p.type] + '</text>'
     ).join('');
-    $('thumbSvg').innerHTML = bgHtml + routeHtml + pinHtml;
+    $('thumbSvg').setAttribute('viewBox', '0 0 ' + W + ' ' + h);
+    $('thumbSvg').innerHTML = html;
   }
 
   // ── 座標・分割・パス ──────────────────────────────────
@@ -396,33 +428,35 @@
     let i2 = Math.max(i1 + 1, Math.min(idxAt(f2), pts.length - 1));
     return [pts.slice(0, i1 + 1), pts.slice(i1, i2 + 1), pts.slice(i2)];
   }
-  const px = (p) => (p.x * W).toFixed(1) + ' ' + (p.y * H).toFixed(1);
-  function rawPath(seg){ return 'M' + seg.map(px).join(' L'); }
-  function smoothPath(seg){
-    if (seg.length < 3) return rawPath(seg);
-    let d = 'M' + px(seg[0]);
+  const px = (p, h) => (p.x * W).toFixed(1) + ' ' + (p.y * h).toFixed(1);
+  function rawPath(seg, h){ return 'M' + seg.map((p) => px(p, h)).join(' L'); }
+  function smoothPath(seg, h){
+    if (seg.length < 3) return rawPath(seg, h);
+    let d = 'M' + px(seg[0], h);
     for (let i = 1; i < seg.length - 1; i++) {
       const mx = (seg[i].x + seg[i + 1].x) / 2 * W;
-      const my = (seg[i].y + seg[i + 1].y) / 2 * H;
-      d += ' Q' + px(seg[i]) + ' ' + mx.toFixed(1) + ' ' + my.toFixed(1);
+      const my = (seg[i].y + seg[i + 1].y) / 2 * h;
+      d += ' Q' + px(seg[i], h) + ' ' + mx.toFixed(1) + ' ' + my.toFixed(1);
     }
-    return d + ' L' + px(seg[seg.length - 1]);
+    return d + ' L' + px(seg[seg.length - 1], h);
   }
-  const pathStr = (seg) => (smooth ? smoothPath : rawPath)(seg);
+  const pathStr = (seg, h) => (smooth ? smoothPath : rawPath)(seg, h);
   function pathHtml(d, color, w, dash){
     return '<path d="' + d + '" stroke="' + color + '" stroke-width="' + w + '" fill="none" stroke-linecap="round" stroke-linejoin="round"' +
       (dash ? ' stroke-dasharray="' + dash + '"' : '') + '/>';
   }
 
-  // ── エディタ入力 ──────────────────────────────────────
+  // ── 入力 ─────────────────────────────────────────────
   svg.addEventListener('pointerdown', (e) => {
-    if (!work || !e.isPrimary) return;
+    if (!work || bg === 'none' || !e.isPrimary) return;
     e.preventDefault();
     $('hint').style.display = 'none';
     const p = toNorm(e);
-    if (mode === 'pin') {
-      const hit = work.pins.findIndex((q) => dist(p, q) < 0.045);
-      if (hit >= 0) work.pins.splice(hit, 1); else work.pins.push(p);
+    if (mode !== 'pen') {
+      // 既存ピン（種類問わず）をタップしたら削除、空きなら現在の種類で追加
+      const hit = work.pins.findIndex((q) => dist(p, q) < 0.05);
+      if (hit >= 0) work.pins.splice(hit, 1);
+      else work.pins.push({ type: mode, x: p.x, y: p.y });
       render();
       return;
     }
@@ -441,7 +475,7 @@
   function endStroke(){
     if (!drawing) return;
     drawing = false;
-    if (work.pts.length < 6) work.pts = []; // タップノイズは捨てる
+    if (work.pts.length < 6) work.pts = [];
     render();
   }
   svg.addEventListener('pointerup', endStroke);
@@ -450,27 +484,28 @@
   // ── エディタ描画 ──────────────────────────────────────
   function render(){
     if (!work) return;
-    routeLayer.innerHTML = '';
-    pinLayer.innerHTML = '';
+    let html = '';
     if (work.pts.length >= 2) {
       if (drawing) {
-        routeLayer.innerHTML = pathHtml(pathStr(work.pts), 'rgba(255,255,255,.92)', 7, '14 10');
+        html = pathHtml(pathStr(work.pts, H), 'rgba(255,255,255,.92)', 7, '14 10');
       } else {
         const segs = splitSegs(work.pts, work.f1, work.f2);
-        let html = pathHtml(pathStr(work.pts), 'rgba(0,0,0,.5)', 13);
-        segs.forEach((seg, k) => { if (seg.length >= 2) html += pathHtml(pathStr(seg), C[k], 7.5); });
+        html = pathHtml(pathStr(work.pts, H), 'rgba(0,0,0,.5)', 13);
+        segs.forEach((seg, k) => { if (seg.length >= 2) html += pathHtml(pathStr(seg, H), C[k], 7.5); });
         const mk = (p, fill, label) =>
           '<circle cx="' + p.x * W + '" cy="' + p.y * H + '" r="15" fill="' + fill + '" stroke="#fff" stroke-width="3.5"/>' +
           '<text x="' + p.x * W + '" y="' + (p.y * H + 5.5) + '" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">' + label + '</text>';
         html += mk(work.pts[0], C[0], 'S') + mk(work.pts[work.pts.length - 1], C[2], 'G');
-        routeLayer.innerHTML = html;
       }
     }
-    pinLayer.innerHTML = work.pins.map((p) =>
-      '<text x="' + p.x * W + '" y="' + (p.y * H + 13) + '" font-size="38" text-anchor="middle" paint-order="stroke" stroke="rgba(0,0,0,.6)" stroke-width="5">💀</text>'
+    $('routeLayer').innerHTML = html;
+    $('pinLayer').innerHTML = work.pins.map((p) =>
+      '<text x="' + p.x * W + '" y="' + (p.y * H + 13) + '" font-size="38" text-anchor="middle" paint-order="stroke" stroke="rgba(0,0,0,.6)" stroke-width="5">' + PIN_EMOJI[p.type] + '</text>'
     ).join('');
+
     const done = !drawing && work.pts.length >= 2;
     $('sliders').classList.toggle('show', done);
+    $('exportBtn').style.display = (!drawing && (work.pts.length >= 2 || work.pins.length > 0)) ? '' : 'none';
     $('pct1').textContent = done ? Math.round(work.f1 * 100) + '%' : '';
     $('pct2').textContent = done ? Math.round((work.f2 - work.f1) * 100) + '%' : '';
     $('pct3').textContent = done ? Math.round((1 - work.f2) * 100) + '%' : '';
@@ -486,35 +521,40 @@
     work.f2 = +$('s2').value / 100; render();
   });
 
-  // ── ツールバー ────────────────────────────────────────
-  function setOn(onEl, offEl){ onEl.classList.add('on'); offEl.classList.remove('on'); }
-  $('toolPen').onclick = () => { mode = 'pen'; setOn($('toolPen'), $('toolPin')); };
-  $('toolPin').onclick = () => { mode = 'pin'; setOn($('toolPin'), $('toolPen')); };
-  $('smoothOn').onclick = () => { smooth = true; setOn($('smoothOn'), $('smoothOff')); render(); };
-  $('smoothOff').onclick = () => { smooth = false; setOn($('smoothOff'), $('smoothOn')); render(); };
-  function setMap(which){
-    currentBg = which;
-    ['mapField', 'mapGrid', 'mapPhoto'].forEach((id) => $(id).classList.toggle('on', id === which));
-    $('bgField').style.display = which === 'mapField' ? '' : 'none';
-    $('bgGrid').style.display  = which === 'mapGrid'  ? '' : 'none';
-    $('bgPhoto').style.display = which === 'mapPhoto' ? '' : 'none';
+  // ── ツール ────────────────────────────────────────────
+  function setTool(which){
+    mode = which;
+    $('toolPen').classList.toggle('on', which === 'pen');
+    $('toolDeath').classList.toggle('on', which === 'death');
+    $('toolFlag').classList.toggle('on', which === 'flag');
   }
-  $('mapField').onclick = () => setMap('mapField');
-  $('mapGrid').onclick = () => setMap('mapGrid');
-  $('mapPhoto').onclick = () => {
-    if ($('photoImg').getAttribute('href')) { setMap('mapPhoto'); return; }
-    $('filePick').click();
-  };
-  $('filePick').addEventListener('change', (e) => {
-    const f = e.target.files && e.target.files[0];
-    if (!f) return;
-    const reader = new FileReader();
-    reader.onload = () => { $('photoImg').setAttribute('href', reader.result); setMap('mapPhoto'); };
-    reader.readAsDataURL(f);
-  });
-  $('clearBtn').onclick = () => {
-    work.pts = []; work.pins = []; work.f1 = 1/3; work.f2 = 2/3;
-    $('s1').value = 33; $('s2').value = 67; render();
+  $('toolPen').onclick = () => setTool('pen');
+  $('toolDeath').onclick = () => setTool('death');
+  $('toolFlag').onclick = () => setTool('flag');
+  $('smoothOn').onclick = () => { smooth = true; $('smoothOn').classList.add('on'); $('smoothOff').classList.remove('on'); render(); };
+  $('smoothOff').onclick = () => { smooth = false; $('smoothOff').classList.add('on'); $('smoothOn').classList.remove('on'); render(); };
+  $('undoPin').onclick = () => { if (work && work.pins.length) { work.pins.pop(); render(); } };
+  $('clearBtn').onclick = () => { resetWork(); render(); };
+
+  // ── 画像として保存（SVG→canvas→PNG） ──────────────────
+  $('exportBtn').onclick = () => {
+    $('hint').style.display = 'none';
+    const clone = svg.cloneNode(true);
+    clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+    const url = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(new XMLSerializer().serializeToString(clone));
+    const img = new Image();
+    img.onload = () => {
+      const scale = 1400 / W;
+      const cnv = document.createElement('canvas');
+      cnv.width = Math.round(W * scale);
+      cnv.height = Math.round(H * scale);
+      cnv.getContext('2d').drawImage(img, 0, 0, cnv.width, cnv.height);
+      const a = document.createElement('a');
+      a.href = cnv.toDataURL('image/png');
+      a.download = 'sabakatsu_route.png';
+      document.body.appendChild(a); a.click(); a.remove();
+    };
+    img.src = url;
   };
 
   renderDayScreen();
