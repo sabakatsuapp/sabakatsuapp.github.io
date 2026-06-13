@@ -95,7 +95,7 @@
 </head>
 <body>
 <div class="wrap">
-  <h1><small>サバ活 開発室 — 次期バージョン試作品 v2</small>ルート記録（フィールドトラッカー）</h1>
+  <h1><small>サバ活 開発室 — 次期バージョン試作品 v3</small>ルート記録（フィールドトラッカー）</h1>
   <p class="lead">試合後に「どう動いたか」をマップ写真に指でなぞって残す新機能の試作です。<b style="color:var(--text);">復活ぶんは線を足せます（何本でもOK）。</b>まずは下の「第1戦」をタップ！</p>
 
   <div class="steps">
@@ -160,6 +160,7 @@
         <div class="bar">
           <button class="btn on" id="toolPen">✏️ ルート</button>
           <button class="btn" id="toolDeath">💀 やられた</button>
+          <button class="btn" id="toolHit">🎯 ヒット</button>
           <button class="btn" id="toolFlag">🚩 フラッグ</button>
         </div>
         <div class="bar">
@@ -193,16 +194,17 @@
         </div>
 
         <div class="legend">
-          <span><i class="dot" style="background:var(--p1)"></i>序盤 <b id="pct1"></b></span>
-          <span><i class="dot" style="background:var(--p2)"></i>中盤 <b id="pct2"></b></span>
-          <span><i class="dot" style="background:var(--p3)"></i>終盤 <b id="pct3"></b></span>
+          <span id="leg1"><i class="dot" style="background:var(--p1)"></i>序盤 <b id="pct1"></b></span>
+          <span id="leg2"><i class="dot" style="background:var(--p2)"></i>中盤 <b id="pct2"></b></span>
+          <span id="leg3"><i class="dot" style="background:var(--p3)"></i>終盤 <b id="pct3"></b></span>
           <span style="margin-left:auto;"><button class="btn" id="changePhoto" style="padding:5px 10px; font-size:11px;">📷 画像を変える</button></span>
         </div>
         <div class="sliders" id="sliders">
           <p>序盤 ⇔ 中盤 の境界（描いた全部の線を“描いた順”でつなげて配分）</p>
-          <input type="range" id="s1" min="5" max="95" value="33">
+          <input type="range" id="s1" min="0" max="100" value="33">
           <p>中盤 ⇔ 終盤 の境界</p>
-          <input type="range" id="s2" min="5" max="95" value="67">
+          <input type="range" id="s2" min="0" max="100" value="67">
+          <p style="color:#6B7383;margin-top:2px;">スライダーを端まで動かすと1〜2色にできます（例：初動でやられた＝青だけ）</p>
         </div>
         <button class="wideBtn" id="exportBtn" style="display:none;">🖼 この内容を画像として保存</button>
       </div>
@@ -213,18 +215,18 @@
   <div class="howto">
     <h2>あそびかた（v2の変更点）</h2>
     <li><b>複数の線が描ける</b>：1本描いて指を離す → また描けば線が増える。<b>復活ぶんを別の線</b>として残せます（指を離しても“終わり”にはなりません）</li>
-    <li><b>色分け</b>：描いた全部の線を“描いた順”でつなげて、序盤(青)/中盤(緑)/終盤(紫)に自動配分。下の2本のスライダーで境界を微調整</li>
+    <li><b>色分け</b>：描いた全部の線を“描いた順”でつなげて、序盤(青)/中盤(緑)/終盤(紫)に自動配分。下の2本のスライダーで境界を微調整。<b>端まで動かせば1色にもできる</b>（初動でやられた＝青だけ）</li>
     <li><b>↩戻す / ↪やり直し</b>：線やピンを1つずつ取り消し・復活。全消しもあり</li>
-    <li><b>ピン</b>：💀やられた／🚩フラッグ。タップで置く・もう一度タップで消す</li>
+    <li><b>ピン</b>：💀やられた／🎯ヒット（取った）／🚩フラッグ。タップで置く・もう一度タップで消す</li>
     <li><b>完了</b>は右上の「保存」。<b>🖼 画像として保存</b>でPNG書き出し</li>
   </div>
 
   <div class="ask">
     <h2>🙏 確かめてほしいこと（感想ください）</h2>
     <li><b>①</b> 復活ぶんを複数の線で描くの、自然だった？（特に第2戦の復活戦で試して）</li>
-    <li><b>②</b> 線が複数でも、序盤/中盤/終盤の色分けは違和感なかった？</li>
+    <li><b>②</b> 色分けは違和感なかった？ <b>1色だけ（初動死＝青のみ）</b>もスライダーを端まで動かせばできます。試してみて</li>
     <li><b>③</b> <b style="color:var(--gold);">スマホの画面でちゃんと描けた？「拡大したい」と思う場面はあった？</b>（ここが今一番知りたい）</li>
-    <li><b>④</b> ↩戻す / ↪やり直し の操作感はどう？</li>
+    <li><b>④</b> ピン（💀やられた／🎯ヒット／🚩フラッグ）はこれで足りる？／↩戻す・↪やり直しの操作感は？</li>
   </div>
 
   <p class="foot">サバ活（サバゲー記録アプリ・開発中）の次期バージョン試作品 v2 です。<br>データは保存されません（リロードで消えます）。 © 63works</p>
@@ -237,7 +239,7 @@
   const W = 1000;
   let H = 1000;
   const C = ['#3D7BFF', '#37C871', '#B05CFF'];
-  const PIN_EMOJI = { death: '💀', flag: '🚩' };
+  const PIN_EMOJI = { death: '💀', hit: '🎯', flag: '🚩' };
   const GAMES = [
     { title: '第1戦', res: 'WIN', type: '殲滅戦', kd: '2 / 1', resColor: '#37C871' },
     { title: '第2戦', res: 'LOSE', type: '復活戦', kd: '3 / 2', resColor: '#FF5A47' },
@@ -499,21 +501,28 @@
     const hasRoute = strokes.length > 0;
     $('sliders').classList.toggle('show', hasRoute && !drawing);
     $('exportBtn').style.display = (!drawing && (hasRoute || getPins().length > 0)) ? '' : 'none';
-    $('pct1').textContent = hasRoute ? Math.round(work.f1 * 100) + '%' : '';
-    $('pct2').textContent = hasRoute ? Math.round((work.f2 - work.f1) * 100) + '%' : '';
-    $('pct3').textContent = hasRoute ? Math.round((1 - work.f2) * 100) + '%' : '';
+    // 0%のフェーズは凡例から隠す（「ゲージ100%なのに0%表記」の誤解を防ぐ）
+    const a1 = work.f1, a2 = work.f2 - work.f1, a3 = 1 - work.f2;
+    $('leg1').style.display = (hasRoute && a1 > 0.005) ? '' : 'none';
+    $('leg2').style.display = (hasRoute && a2 > 0.005) ? '' : 'none';
+    $('leg3').style.display = (hasRoute && a3 > 0.005) ? '' : 'none';
+    $('pct1').textContent = Math.round(a1 * 100) + '%';
+    $('pct2').textContent = Math.round(a2 * 100) + '%';
+    $('pct3').textContent = Math.round(a3 * 100) + '%';
     $('undoBtn').disabled = work.history.length === 0;
     $('redoBtn').disabled = work.redo.length === 0;
   }
 
   // ── スライダー ────────────────────────────────────────
-  $('s1').addEventListener('input', () => { if (+$('s1').value > +$('s2').value - 8) $('s1').value = +$('s2').value - 8; work.f1 = +$('s1').value / 100; render(); });
-  $('s2').addEventListener('input', () => { if (+$('s2').value < +$('s1').value + 8) $('s2').value = +$('s1').value + 8; work.f2 = +$('s2').value / 100; render(); });
+  // 最小幅の制約を撤廃：端まで動かすと1色（序盤だけ＝初動死）や2色にできる。s1<=s2 だけ保つ
+  $('s1').addEventListener('input', () => { if (+$('s1').value > +$('s2').value) $('s2').value = $('s1').value; work.f1 = +$('s1').value / 100; work.f2 = +$('s2').value / 100; render(); });
+  $('s2').addEventListener('input', () => { if (+$('s2').value < +$('s1').value) $('s1').value = $('s2').value; work.f1 = +$('s1').value / 100; work.f2 = +$('s2').value / 100; render(); });
 
   // ── ツール ────────────────────────────────────────────
-  function setTool(w){ mode = w; $('toolPen').classList.toggle('on', w === 'pen'); $('toolDeath').classList.toggle('on', w === 'death'); $('toolFlag').classList.toggle('on', w === 'flag'); }
+  function setTool(w){ mode = w; const map = { pen:'toolPen', death:'toolDeath', hit:'toolHit', flag:'toolFlag' }; Object.entries(map).forEach(([m, id]) => $(id).classList.toggle('on', m === w)); }
   $('toolPen').onclick = () => setTool('pen');
   $('toolDeath').onclick = () => setTool('death');
+  $('toolHit').onclick = () => setTool('hit');
   $('toolFlag').onclick = () => setTool('flag');
   $('smoothOn').onclick = () => { smooth = true; $('smoothOn').classList.add('on'); $('smoothOff').classList.remove('on'); render(); };
   $('smoothOff').onclick = () => { smooth = false; $('smoothOff').classList.add('on'); $('smoothOn').classList.remove('on'); render(); };
