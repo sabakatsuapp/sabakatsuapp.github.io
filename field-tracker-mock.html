@@ -45,8 +45,8 @@
   .chev{color:var(--sub); font-size:16px;}
 
   .sect{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px 12px; margin-bottom:10px;}
-  .row{display:flex; align-items:center; justify-content:space-between; min-height:30px; font-size:13px;}
-  .row .l{color:var(--sub); font-size:12px;}
+  .rrow{display:flex; align-items:center; justify-content:space-between; min-height:30px; font-size:13px;}
+  .rrow .l{color:var(--sub); font-size:12px;}
   .newSect{border:1.5px solid var(--lime); position:relative;}
   .newTag{position:absolute; top:-9px; left:12px; background:var(--lime); color:#1A2005; font-size:9.5px; font-weight:900; border-radius:99px; padding:2px 8px; letter-spacing:1px;}
   .drawBtn{display:block; width:100%; background:var(--accent); color:#fff; text-align:center; font-size:13.5px; font-weight:800; border:none; border-radius:999px; padding:12px 0; margin-top:8px; cursor:pointer;}
@@ -59,6 +59,7 @@
   .bar{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; align-items:center;}
   .btn{border:1.5px solid var(--line); background:var(--card); color:var(--sub); border-radius:999px; padding:8px 12px; font-size:12px; font-weight:700; cursor:pointer; user-select:none;}
   .btn.on{border-color:var(--lime); color:var(--lime); background:rgba(184,230,46,.1);}
+  .btn:disabled{opacity:.32; cursor:default;}
   .btn.right{margin-left:auto;}
   .seg{display:flex; border:1.5px solid var(--line); border-radius:999px; overflow:hidden;}
   .seg .btn{border:none; border-radius:0; background:transparent;}
@@ -67,14 +68,14 @@
 
   .canvas-wrap{position:relative; border:2px solid #3A4150; border-radius:14px; overflow:hidden; touch-action:none; background:#10120F;}
   svg{display:block; width:100%; height:auto;}
-  .hint{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;}
-  .hint span{background:rgba(13,14,18,.78); border:1.5px dashed var(--lime); color:var(--lime); font-size:13px; font-weight:700; padding:10px 16px; border-radius:12px;}
+  .hint{position:absolute; left:0; right:0; bottom:8px; display:flex; justify-content:center; pointer-events:none;}
+  .hint span{background:rgba(13,14,18,.8); border:1.5px dashed var(--lime); color:var(--lime); font-size:11.5px; font-weight:700; padding:7px 13px; border-radius:10px;}
   .starter{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; background:rgba(13,14,18,.6); padding:20px;}
   .starter p{color:var(--sub); font-size:12px; text-align:center; line-height:1.7;}
   .starter .big{background:var(--accent); color:#fff; border:none; border-radius:999px; padding:13px 22px; font-size:14px; font-weight:800; cursor:pointer;}
   .starter .small{background:transparent; color:var(--sub); border:1.5px solid var(--line); border-radius:999px; padding:9px 16px; font-size:12px; font-weight:700; cursor:pointer;}
 
-  .legend{display:flex; gap:8px; margin:10px 0 4px; font-size:11.5px; font-weight:700;}
+  .legend{display:flex; gap:8px; margin:10px 0 4px; font-size:11.5px; font-weight:700; align-items:center;}
   .legend span{display:flex; align-items:center; gap:5px; color:var(--sub);}
   .dot{width:12px; height:12px; border-radius:3px; display:inline-block;}
   .sliders{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:10px 14px 6px; margin-top:8px; display:none;}
@@ -94,8 +95,8 @@
 </head>
 <body>
 <div class="wrap">
-  <h1><small>サバ活 開発室 — 次期バージョン試作品</small>ルート記録（フィールドトラッカー）</h1>
-  <p class="lead">試合後に「どう動いたか」をマップ写真に指でなぞって残す新機能の試作です。<b style="color:var(--text);">本物のアプリと同じ画面の流れ</b>で体験できます。まずは下の「第1戦」をタップ！</p>
+  <h1><small>サバ活 開発室 — 次期バージョン試作品 v2</small>ルート記録（フィールドトラッカー）</h1>
+  <p class="lead">試合後に「どう動いたか」をマップ写真に指でなぞって残す新機能の試作です。<b style="color:var(--text);">復活ぶんは線を足せます（何本でもOK）。</b>まずは下の「第1戦」をタップ！</p>
 
   <div class="steps">
     <span class="step cur" id="st1">① 1日の記録</span><span class="ar">▸</span>
@@ -105,7 +106,7 @@
 
   <div class="appframe">
 
-    <!-- ══ 画面A: 1日の記録 ══ -->
+    <!-- ══ 画面A ══ -->
     <div class="screen" id="scrA">
       <div class="nav"><span class="side">‹ 記録</span><span class="ttl">1日の記録</span><span class="side right">✎</span></div>
       <div class="body">
@@ -115,38 +116,30 @@
         <p class="sh">ゲーム（2戦）</p>
         <div class="hintbar">💡 ゲームの行をタップすると開きます</div>
         <div class="gcard" data-g="0">
-          <div class="tx">
-            <p class="t1">第1戦 殲滅戦　<span style="color:var(--p2); font-weight:900;">WIN</span></p>
-            <p class="t2">キル 2 ／ デス 1 ／ セミ</p>
-          </div>
-          <span class="routeBadge" id="badge0" style="display:none;">ルートあり</span>
-          <span class="chev">›</span>
+          <div class="tx"><p class="t1">第1戦 殲滅戦　<span style="color:var(--p2);font-weight:900;">WIN</span></p><p class="t2">キル 2 ／ デス 1 ／ セミ</p></div>
+          <span class="routeBadge" id="badge0" style="display:none;">ルートあり</span><span class="chev">›</span>
         </div>
         <div class="gcard" data-g="1">
-          <div class="tx">
-            <p class="t1">第2戦 フラッグ戦　<span style="color:var(--accent); font-weight:900;">LOSE</span></p>
-            <p class="t2">キル 1 ／ デス 2 ／ セミ</p>
-          </div>
-          <span class="routeBadge" id="badge1" style="display:none;">ルートあり</span>
-          <span class="chev">›</span>
+          <div class="tx"><p class="t1">第2戦 復活戦　<span style="color:var(--accent);font-weight:900;">LOSE</span></p><p class="t2">キル 3 ／ デス 2 ／ セミ</p></div>
+          <span class="routeBadge" id="badge1" style="display:none;">ルートあり</span><span class="chev">›</span>
         </div>
-        <p class="grayNote">※ 試作デモです。ゲームの中身は架空データ。</p>
+        <p class="grayNote">※ 試作デモです。ゲームの中身は架空データ。第2戦は復活戦＝線を複数本に分けて描く練習に。</p>
       </div>
     </div>
 
-    <!-- ══ 画面B: ゲーム記録 ══ -->
+    <!-- ══ 画面B ══ -->
     <div class="screen" id="scrB" hidden>
       <div class="nav"><span class="side" id="backToA">‹ 1日の記録</span><span class="ttl" id="gameTitle">第1戦</span><span class="side right"></span></div>
       <div class="body">
         <div class="sect">
-          <div class="row"><span class="l">結果</span><span id="gRes">WIN</span></div>
-          <div class="row"><span class="l">ゲーム形式</span><span id="gType">殲滅戦</span></div>
-          <div class="row"><span class="l">キル / デス</span><span id="gKD">2 / 1</span></div>
+          <div class="rrow"><span class="l">結果</span><span id="gRes">WIN</span></div>
+          <div class="rrow"><span class="l">ゲーム形式</span><span id="gType">殲滅戦</span></div>
+          <div class="rrow"><span class="l">キル / デス</span><span id="gKD">2 / 1</span></div>
           <p class="grayNote">↑ ここまでは今のアプリにもある項目（簡略表示）</p>
         </div>
         <div class="sect newSect">
           <span class="newTag">NEW</span>
-          <div class="row"><span class="l">ルート / ポジション</span><span class="grayNote">任意</span></div>
+          <div class="rrow"><span class="l">ルート / ポジション</span><span class="grayNote">任意</span></div>
           <div id="routeEmpty">
             <button class="drawBtn" id="openEditor">✏️ ルートを描く</button>
             <p class="grayNote" style="text-align:center; margin-top:6px;">描かなくてもOK。気が向いた試合だけ</p>
@@ -160,7 +153,7 @@
       </div>
     </div>
 
-    <!-- ══ 画面C: ルートエディタ ══ -->
+    <!-- ══ 画面C: エディタ ══ -->
     <div class="screen" id="scrC" hidden>
       <div class="nav"><span class="side" id="cancelEdit">キャンセル</span><span class="ttl">ルートを描く</span><span class="side right" id="saveEdit" style="color:var(--lime);">保存</span></div>
       <div class="body">
@@ -170,12 +163,13 @@
           <button class="btn" id="toolFlag">🚩 フラッグ</button>
         </div>
         <div class="bar">
-          <div class="seg">
-            <button class="btn on" id="smoothOn">なめらか補正</button>
+          <button class="btn" id="undoBtn">↩ 戻す</button>
+          <button class="btn" id="redoBtn">↪ やり直し</button>
+          <div class="seg" style="margin-left:auto;">
+            <button class="btn on" id="smoothOn">なめらか</button>
             <button class="btn" id="smoothOff">生の線</button>
           </div>
-          <button class="btn" id="undoPin">↩ ピンを戻す</button>
-          <button class="btn right" id="clearBtn">全消し</button>
+          <button class="btn" id="clearBtn">全消し</button>
         </div>
         <input type="file" id="filePick" accept="image/*" style="display:none;">
 
@@ -187,6 +181,7 @@
             </g>
             <g id="bgSample" style="display:none;"></g>
             <g id="routeLayer"></g>
+            <g id="liveLayer"></g>
             <g id="pinLayer"></g>
           </svg>
           <div class="starter" id="starter">
@@ -194,7 +189,7 @@
             <button class="big" id="loadPhotoBtn">📷 マップ写真を読み込む</button>
             <button class="small" id="useSampleBtn">写真がない人はこちら（サンプルマップで試す）</button>
           </div>
-          <div class="hint" id="hint" style="display:none;"><span>マップを指でなぞってルートを描いてみて！</span></div>
+          <div class="hint" id="hint" style="display:none;"><span id="hintText">指でなぞって描く。復活したら指を離してまた描けば線を足せます</span></div>
         </div>
 
         <div class="legend">
@@ -204,7 +199,7 @@
           <span style="margin-left:auto;"><button class="btn" id="changePhoto" style="padding:5px 10px; font-size:11px;">📷 画像を変える</button></span>
         </div>
         <div class="sliders" id="sliders">
-          <p>序盤 ⇔ 中盤 の境界（記憶に合わせて微調整）</p>
+          <p>序盤 ⇔ 中盤 の境界（描いた全部の線を“描いた順”でつなげて配分）</p>
           <input type="range" id="s1" min="5" max="95" value="33">
           <p>中盤 ⇔ 終盤 の境界</p>
           <input type="range" id="s2" min="5" max="95" value="67">
@@ -213,27 +208,26 @@
       </div>
     </div>
 
-  </div><!-- /appframe -->
+  </div>
 
   <div class="howto">
-    <h2>画面の流れ（本物のアプリと同じ導線です）</h2>
-    <li><b>① 1日の記録</b>：その日の出撃を開くとゲームが並んでいる（ここまでは今のサバ活と同じ）</li>
-    <li><b>② ゲーム記録</b>：新設「ルート / ポジション」の <b>✏️ ルートを描く</b> をタップ</li>
-    <li><b>③ エディタ</b>：マップ写真を読み込む → 指でなぞる → <b>指を離すと完成</b> → 序盤/中盤/終盤に自動色分け → 保存</li>
-    <li><b>ピン</b>：💀やられた／🚩フラッグゲット。タップで置く・<b>ピンをもう一度タップで消す</b>・「↩ ピンを戻す」で直前のピンを取り消し</li>
-    <li><b>🖼 画像として保存</b>：描いた内容をPNGで書き出し（端末によっては新しいタブで開くので長押しで保存）</li>
-    <li>※ 本物のアプリでは、フィールドに登録済みのマップ画像が<b>自動で台紙に入る</b>ので毎回の読み込みは不要です</li>
+    <h2>あそびかた（v2の変更点）</h2>
+    <li><b>複数の線が描ける</b>：1本描いて指を離す → また描けば線が増える。<b>復活ぶんを別の線</b>として残せます（指を離しても“終わり”にはなりません）</li>
+    <li><b>色分け</b>：描いた全部の線を“描いた順”でつなげて、序盤(青)/中盤(緑)/終盤(紫)に自動配分。下の2本のスライダーで境界を微調整</li>
+    <li><b>↩戻す / ↪やり直し</b>：線やピンを1つずつ取り消し・復活。全消しもあり</li>
+    <li><b>ピン</b>：💀やられた／🚩フラッグ。タップで置く・もう一度タップで消す</li>
+    <li><b>完了</b>は右上の「保存」。<b>🖼 画像として保存</b>でPNG書き出し</li>
   </div>
 
   <div class="ask">
     <h2>🙏 確かめてほしいこと（感想ください）</h2>
-    <li><b>①</b> 描き味は自然？「なめらか補正」と「生の線」どっちが好き？</li>
-    <li><b>②</b> 序盤/中盤/終盤の自動色分け＋スライダー調整、直感的に使えた？</li>
-    <li><b>③</b> ピンは💀と🚩で足りる？（スタート地点・キル地点も検討中）</li>
-    <li><b>④</b> この画面の流れで迷わなかった？「描くまでが遠い」と感じたら教えて！</li>
+    <li><b>①</b> 復活ぶんを複数の線で描くの、自然だった？（特に第2戦の復活戦で試して）</li>
+    <li><b>②</b> 線が複数でも、序盤/中盤/終盤の色分けは違和感なかった？</li>
+    <li><b>③</b> <b style="color:var(--gold);">スマホの画面でちゃんと描けた？「拡大したい」と思う場面はあった？</b>（ここが今一番知りたい）</li>
+    <li><b>④</b> ↩戻す / ↪やり直し の操作感はどう？</li>
   </div>
 
-  <p class="foot">サバ活（サバゲー記録アプリ・開発中）の次期バージョン試作品です。<br>データは保存されません（リロードで消えます）。 © 63works</p>
+  <p class="foot">サバ活（サバゲー記録アプリ・開発中）の次期バージョン試作品 v2 です。<br>データは保存されません（リロードで消えます）。 © 63works</p>
 </div>
 
 <script>
@@ -241,15 +235,14 @@
   const $ = (id) => document.getElementById(id);
   const svg = $('cv');
   const W = 1000;
-  let H = 1000; // 画像のアスペクト比に合わせて可変
+  let H = 1000;
   const C = ['#3D7BFF', '#37C871', '#B05CFF'];
   const PIN_EMOJI = { death: '💀', flag: '🚩' };
   const GAMES = [
     { title: '第1戦', res: 'WIN', type: '殲滅戦', kd: '2 / 1', resColor: '#37C871' },
-    { title: '第2戦', res: 'LOSE', type: 'フラッグ戦', kd: '1 / 2', resColor: '#FF5A47' },
+    { title: '第2戦', res: 'LOSE', type: '復活戦', kd: '3 / 2', resColor: '#FF5A47' },
   ];
 
-  // サンプルマップ（写真が手元にない人用。横長 1000×750）
   const SAMPLE_H = 750;
   const SAMPLE_SVG =
     '<rect width="1000" height="750" fill="#243520"/>' +
@@ -271,14 +264,20 @@
     '<text x="32" y="726" font-size="18" fill="#5A6B50">サンプルマップ（架空フィールド）</text>';
 
   // ── 状態 ──────────────────────────────────────────────
-  const routes = [null, null]; // ゲームごと {pts,pins,f1,f2,bg,viewH,href}
+  // ルートは複数ストローク。history に「線」と「ピン」を打った順で積む（Undo/Redo の単位）
+  const routes = [null, null];
   let curGame = 0;
-  let work = null;             // 編集中 {pts, pins[{type,x,y}], f1, f2}
+  let work = null;          // { history:[], redo:[], f1, f2 }
+  let curStroke = null;     // 現在指で描いている途中の線
   let drawing = false;
-  let mode = 'pen';            // 'pen' | 'death' | 'flag'
+  let mode = 'pen';
   let smooth = true;
-  let bg = 'none';             // 'none' | 'sample' | 'photo'
+  let bg = 'none';
   let photoHref = null;
+
+  // history の要素: { kind:'stroke', pts:[{x,y}] } / { kind:'pin', type, x, y }
+  const getStrokes = () => work.history.filter((h) => h.kind === 'stroke').map((h) => h.pts);
+  const getPins = () => work.history.filter((h) => h.kind === 'pin');
 
   // ── 画面遷移 ──────────────────────────────────────────
   function show(which){
@@ -295,33 +294,34 @@
   $('routeThumb').onclick = openEditor;
   $('cancelEdit').onclick = () => { renderGameScreen(); show('scrB'); };
   $('saveEdit').onclick = () => {
-    routes[curGame] = (work.pts.length >= 2 || work.pins.length > 0)
-      ? { pts: work.pts, pins: work.pins, f1: work.f1, f2: work.f2, bg, viewH: H, href: photoHref }
+    const strokes = getStrokes(), pins = getPins();
+    routes[curGame] = (strokes.length > 0 || pins.length > 0)
+      ? { strokes, pins, f1: work.f1, f2: work.f2, bg, viewH: H, href: photoHref }
       : null;
     renderGameScreen(); show('scrB');
   };
 
   function openEditor(){
     const saved = routes[curGame];
+    work = { history: [], redo: [], f1: 1/3, f2: 2/3 };
+    curStroke = null;
     if (saved) {
-      work = { pts: saved.pts.slice(), pins: saved.pins.slice(), f1: saved.f1, f2: saved.f2 };
+      saved.strokes.forEach((pts) => work.history.push({ kind: 'stroke', pts: pts.slice() }));
+      saved.pins.forEach((p) => work.history.push({ kind: 'pin', type: p.type, x: p.x, y: p.y }));
+      work.f1 = saved.f1; work.f2 = saved.f2;
       if (saved.bg === 'photo' && saved.href) { photoHref = saved.href; setBg('photo', saved.viewH); }
       else if (saved.bg === 'sample') setBg('sample', SAMPLE_H);
-    } else {
-      work = { pts: [], pins: [], f1: 1/3, f2: 2/3 };
     }
     $('s1').value = Math.round(work.f1 * 100);
     $('s2').value = Math.round(work.f2 * 100);
-    updateStarter();
-    $('hint').style.display = (bg !== 'none' && !work.pts.length) ? '' : 'none';
+    $('hint').style.display = (bg !== 'none' && work.history.length === 0) ? '' : 'none';
     render();
     show('scrC');
   }
 
-  // ── 台紙（写真のアスペクト比に合わせて viewBox を可変） ──
+  // ── 台紙 ─────────────────────────────────────────────
   function setBg(which, viewH){
-    bg = which;
-    H = viewH;
+    bg = which; H = viewH;
     svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H);
     $('bgPhoto').style.display = which === 'photo' ? '' : 'none';
     $('bgSample').style.display = which === 'sample' ? '' : 'none';
@@ -331,19 +331,12 @@
       $('photoImg').setAttribute('height', H);
       $('photoImg').setAttribute('href', photoHref);
     }
-    updateStarter();
+    $('starter').style.display = which === 'none' ? '' : 'none';
   }
-  function updateStarter(){ $('starter').style.display = bg === 'none' ? '' : 'none'; }
-
   function pickPhoto(){ $('filePick').click(); }
   $('loadPhotoBtn').onclick = pickPhoto;
   $('changePhoto').onclick = pickPhoto;
-  $('useSampleBtn').onclick = () => {
-    resetWork();
-    setBg('sample', SAMPLE_H);
-    $('hint').style.display = '';
-    render();
-  };
+  $('useSampleBtn').onclick = () => { clearAll(); setBg('sample', SAMPLE_H); $('hint').style.display = ''; render(); };
   $('filePick').addEventListener('change', (e) => {
     const f = e.target.files && e.target.files[0];
     if (!f) return;
@@ -352,9 +345,8 @@
       const img = new Image();
       img.onload = () => {
         photoHref = reader.result;
-        // 縦横どちらの写真でも、その比率どおりの描画エリアにする（極端な比率は安全のためクランプ）
         const ratio = Math.min(2.4, Math.max(0.4, img.naturalHeight / img.naturalWidth));
-        resetWork();
+        clearAll();
         setBg('photo', Math.round(W * ratio));
         $('hint').style.display = '';
         render();
@@ -362,24 +354,17 @@
       img.src = reader.result;
     };
     reader.readAsDataURL(f);
-    e.target.value = ''; // 同じファイルの再選択も発火させる
+    e.target.value = '';
   });
-  function resetWork(){
-    if (!work) return;
-    work.pts = []; work.pins = []; work.f1 = 1/3; work.f2 = 2/3;
-    $('s1').value = 33; $('s2').value = 67;
-  }
+  function clearAll(){ if (work) { work.history = []; work.redo = []; curStroke = null; } }
 
   // ── 画面A/B ──────────────────────────────────────────
-  function renderDayScreen(){
-    routes.forEach((r, i) => { $('badge' + i).style.display = r ? '' : 'none'; });
-  }
+  function renderDayScreen(){ routes.forEach((r, i) => { $('badge' + i).style.display = r ? '' : 'none'; }); }
   function renderGameScreen(){
     const g = GAMES[curGame];
     $('gameTitle').textContent = g.title;
     $('gRes').textContent = g.res; $('gRes').style.color = g.resColor;
-    $('gType').textContent = g.type;
-    $('gKD').textContent = g.kd;
+    $('gType').textContent = g.type; $('gKD').textContent = g.kd;
     const r = routes[curGame];
     $('routeEmpty').style.display = r ? 'none' : '';
     $('routeThumb').style.display = r ? '' : 'none';
@@ -389,61 +374,73 @@
     const h = r.viewH;
     let bgHtml = '';
     if (r.bg === 'photo' && r.href) {
-      bgHtml = '<rect width="' + W + '" height="' + h + '" fill="#10120F"/>' +
-        '<image href="' + r.href + '" width="' + W + '" height="' + h + '" preserveAspectRatio="xMidYMid meet"/>';
-    } else if (r.bg === 'sample') {
-      bgHtml = SAMPLE_SVG;
-    }
-    let html = bgHtml;
-    if (r.pts.length >= 2) {
-      const segs = splitSegs(r.pts, r.f1, r.f2);
-      html += pathHtml(pathStr(r.pts, h), 'rgba(0,0,0,.5)', 22);
-      segs.forEach((seg, k) => { if (seg.length >= 2) html += pathHtml(pathStr(seg, h), C[k], 14); });
-    }
+      bgHtml = '<rect width="' + W + '" height="' + h + '" fill="#10120F"/><image href="' + r.href + '" width="' + W + '" height="' + h + '" preserveAspectRatio="xMidYMid meet"/>';
+    } else if (r.bg === 'sample') { bgHtml = SAMPLE_SVG; }
+    let html = bgHtml + coloredRoute(r.strokes, r.f1, r.f2, h, 22, 14);
+    html += startGoalMarkers(r.strokes, h, 12);
     html += r.pins.map((p) =>
-      '<text x="' + p.x * W + '" y="' + (p.y * h + 22) + '" font-size="64" text-anchor="middle" paint-order="stroke" stroke="rgba(0,0,0,.6)" stroke-width="8">' + PIN_EMOJI[p.type] + '</text>'
+      '<text x="' + p.x * W + '" y="' + (p.y * h + 22) + '" font-size="58" text-anchor="middle" paint-order="stroke" stroke="rgba(0,0,0,.6)" stroke-width="8">' + PIN_EMOJI[p.type] + '</text>'
     ).join('');
     $('thumbSvg').setAttribute('viewBox', '0 0 ' + W + ' ' + h);
     $('thumbSvg').innerHTML = html;
   }
 
-  // ── 座標・分割・パス ──────────────────────────────────
+  // ── 幾何・パス ────────────────────────────────────────
   function toNorm(e){
     const r = svg.getBoundingClientRect();
-    return {
-      x: Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)),
-      y: Math.min(1, Math.max(0, (e.clientY - r.top) / r.height)),
-    };
+    return { x: Math.min(1, Math.max(0, (e.clientX - r.left) / r.width)), y: Math.min(1, Math.max(0, (e.clientY - r.top) / r.height)) };
   }
   const dist = (a, b) => Math.hypot(a.x - b.x, a.y - b.y);
-  function splitSegs(pts, f1, f2){
-    const acc = [0];
-    for (let i = 1; i < pts.length; i++) acc.push(acc[i - 1] + dist(pts[i - 1], pts[i]));
-    const idxAt = (frac) => {
-      const t = acc[acc.length - 1] * frac;
-      for (let i = 1; i < acc.length; i++) if (acc[i] >= t) return i;
-      return acc.length - 1;
-    };
-    let i1 = Math.max(1, Math.min(idxAt(f1), pts.length - 2));
-    let i2 = Math.max(i1 + 1, Math.min(idxAt(f2), pts.length - 1));
-    return [pts.slice(0, i1 + 1), pts.slice(i1, i2 + 1), pts.slice(i2)];
-  }
   const px = (p, h) => (p.x * W).toFixed(1) + ' ' + (p.y * h).toFixed(1);
   function rawPath(seg, h){ return 'M' + seg.map((p) => px(p, h)).join(' L'); }
   function smoothPath(seg, h){
     if (seg.length < 3) return rawPath(seg, h);
     let d = 'M' + px(seg[0], h);
     for (let i = 1; i < seg.length - 1; i++) {
-      const mx = (seg[i].x + seg[i + 1].x) / 2 * W;
-      const my = (seg[i].y + seg[i + 1].y) / 2 * h;
+      const mx = (seg[i].x + seg[i + 1].x) / 2 * W, my = (seg[i].y + seg[i + 1].y) / 2 * h;
       d += ' Q' + px(seg[i], h) + ' ' + mx.toFixed(1) + ' ' + my.toFixed(1);
     }
     return d + ' L' + px(seg[seg.length - 1], h);
   }
   const pathStr = (seg, h) => (smooth ? smoothPath : rawPath)(seg, h);
   function pathHtml(d, color, w, dash){
-    return '<path d="' + d + '" stroke="' + color + '" stroke-width="' + w + '" fill="none" stroke-linecap="round" stroke-linejoin="round"' +
-      (dash ? ' stroke-dasharray="' + dash + '"' : '') + '/>';
+    return '<path d="' + d + '" stroke="' + color + '" stroke-width="' + w + '" fill="none" stroke-linecap="round" stroke-linejoin="round"' + (dash ? ' stroke-dasharray="' + dash + '"' : '') + '/>';
+  }
+  const phaseAt = (cum, b1, b2) => (cum < b1 ? 0 : cum < b2 ? 1 : 2);
+
+  // 複数ストロークを「描いた順の合計長」で3分割して色分け（線間のすき間は長さに数えない）
+  function coloredRoute(strokes, f1, f2, h, underW, lineW){
+    const valid = strokes.filter((s) => s.length >= 2);
+    if (valid.length === 0) return '';
+    let total = 0;
+    valid.forEach((s) => { for (let i = 1; i < s.length; i++) total += dist(s[i - 1], s[i]); });
+    if (total === 0) return '';
+    const b1 = total * f1, b2 = total * f2;
+    let html = '';
+    // 下敷き（各線まるごと暗色）
+    valid.forEach((s) => { html += pathHtml(pathStr(s, h), 'rgba(0,0,0,.5)', underW); });
+    // 本体（フェーズ色のラン）
+    let cum = 0;
+    valid.forEach((s) => {
+      let run = { phase: phaseAt(cum, b1, b2), pts: [s[0]] };
+      for (let i = 1; i < s.length; i++) {
+        cum += dist(s[i - 1], s[i]);
+        const ph = phaseAt(cum, b1, b2);
+        run.pts.push(s[i]);
+        if (ph !== run.phase) { html += pathHtml(pathStr(run.pts, h), C[run.phase], lineW); run = { phase: ph, pts: [s[i]] }; }
+      }
+      html += pathHtml(pathStr(run.pts, h), C[run.phase], lineW);
+    });
+    return html;
+  }
+  function startGoalMarkers(strokes, h, r){
+    const valid = strokes.filter((s) => s.length >= 2);
+    if (valid.length === 0) return '';
+    const first = valid[0][0], lastS = valid[valid.length - 1], last = lastS[lastS.length - 1];
+    const mk = (p, fill, label) =>
+      '<circle cx="' + p.x * W + '" cy="' + p.y * h + '" r="' + r + '" fill="' + fill + '" stroke="#fff" stroke-width="' + (r / 4) + '"/>' +
+      '<text x="' + p.x * W + '" y="' + (p.y * h + r / 2.6) + '" font-size="' + r + '" font-weight="bold" fill="#fff" text-anchor="middle">' + label + '</text>';
+    return mk(first, C[0], 'S') + mk(last, C[2], 'G');
   }
 
   // ── 入力 ─────────────────────────────────────────────
@@ -453,16 +450,21 @@
     $('hint').style.display = 'none';
     const p = toNorm(e);
     if (mode !== 'pen') {
-      // 既存ピン（種類問わず）をタップしたら削除、空きなら現在の種類で追加
-      const hit = work.pins.findIndex((q) => dist(p, q) < 0.05);
-      if (hit >= 0) work.pins.splice(hit, 1);
-      else work.pins.push({ type: mode, x: p.x, y: p.y });
+      const pins = getPins();
+      const hit = pins.findIndex((q) => dist(p, q) < 0.05);
+      if (hit >= 0) { // タップで削除（history から該当ピンを除去）
+        let seen = -1;
+        work.history = work.history.filter((it) => { if (it.kind === 'pin') { seen++; return seen !== hit; } return true; });
+        work.redo = [];
+      } else {
+        work.history.push({ kind: 'pin', type: mode, x: p.x, y: p.y });
+        work.redo = [];
+      }
       render();
       return;
     }
     drawing = true;
-    work.pts = [p];
-    work.f1 = 1/3; work.f2 = 2/3; $('s1').value = 33; $('s2').value = 67;
+    curStroke = [p];
     svg.setPointerCapture(e.pointerId);
     render();
   });
@@ -470,73 +472,56 @@
     if (!drawing || !e.isPrimary) return;
     e.preventDefault();
     const p = toNorm(e);
-    if (dist(p, work.pts[work.pts.length - 1]) > 0.004) { work.pts.push(p); render(); }
+    if (dist(p, curStroke[curStroke.length - 1]) > 0.004) { curStroke.push(p); render(); }
   });
   function endStroke(){
     if (!drawing) return;
     drawing = false;
-    if (work.pts.length < 6) work.pts = [];
+    if (curStroke && curStroke.length >= 3) { work.history.push({ kind: 'stroke', pts: curStroke }); work.redo = []; }
+    curStroke = null;
     render();
   }
   svg.addEventListener('pointerup', endStroke);
   svg.addEventListener('pointercancel', endStroke);
 
-  // ── エディタ描画 ──────────────────────────────────────
+  // ── 描画 ─────────────────────────────────────────────
   function render(){
     if (!work) return;
-    let html = '';
-    if (work.pts.length >= 2) {
-      if (drawing) {
-        html = pathHtml(pathStr(work.pts, H), 'rgba(255,255,255,.92)', 7, '14 10');
-      } else {
-        const segs = splitSegs(work.pts, work.f1, work.f2);
-        html = pathHtml(pathStr(work.pts, H), 'rgba(0,0,0,.5)', 13);
-        segs.forEach((seg, k) => { if (seg.length >= 2) html += pathHtml(pathStr(seg, H), C[k], 7.5); });
-        const mk = (p, fill, label) =>
-          '<circle cx="' + p.x * W + '" cy="' + p.y * H + '" r="15" fill="' + fill + '" stroke="#fff" stroke-width="3.5"/>' +
-          '<text x="' + p.x * W + '" y="' + (p.y * H + 5.5) + '" font-size="15" font-weight="bold" fill="#fff" text-anchor="middle">' + label + '</text>';
-        html += mk(work.pts[0], C[0], 'S') + mk(work.pts[work.pts.length - 1], C[2], 'G');
-      }
-    }
-    $('routeLayer').innerHTML = html;
-    $('pinLayer').innerHTML = work.pins.map((p) =>
+    const strokes = getStrokes();
+    $('routeLayer').innerHTML = coloredRoute(strokes, work.f1, work.f2, H, 13, 7.5) + startGoalMarkers(strokes, H, 15);
+    // 描いている途中の線（白破線・確定すると色がつく）
+    $('liveLayer').innerHTML = (drawing && curStroke && curStroke.length >= 2)
+      ? pathHtml(pathStr(curStroke, H), 'rgba(255,255,255,.92)', 7, '14 10') : '';
+    $('pinLayer').innerHTML = getPins().map((p) =>
       '<text x="' + p.x * W + '" y="' + (p.y * H + 13) + '" font-size="38" text-anchor="middle" paint-order="stroke" stroke="rgba(0,0,0,.6)" stroke-width="5">' + PIN_EMOJI[p.type] + '</text>'
     ).join('');
 
-    const done = !drawing && work.pts.length >= 2;
-    $('sliders').classList.toggle('show', done);
-    $('exportBtn').style.display = (!drawing && (work.pts.length >= 2 || work.pins.length > 0)) ? '' : 'none';
-    $('pct1').textContent = done ? Math.round(work.f1 * 100) + '%' : '';
-    $('pct2').textContent = done ? Math.round((work.f2 - work.f1) * 100) + '%' : '';
-    $('pct3').textContent = done ? Math.round((1 - work.f2) * 100) + '%' : '';
+    const hasRoute = strokes.length > 0;
+    $('sliders').classList.toggle('show', hasRoute && !drawing);
+    $('exportBtn').style.display = (!drawing && (hasRoute || getPins().length > 0)) ? '' : 'none';
+    $('pct1').textContent = hasRoute ? Math.round(work.f1 * 100) + '%' : '';
+    $('pct2').textContent = hasRoute ? Math.round((work.f2 - work.f1) * 100) + '%' : '';
+    $('pct3').textContent = hasRoute ? Math.round((1 - work.f2) * 100) + '%' : '';
+    $('undoBtn').disabled = work.history.length === 0;
+    $('redoBtn').disabled = work.redo.length === 0;
   }
 
   // ── スライダー ────────────────────────────────────────
-  $('s1').addEventListener('input', () => {
-    if (+$('s1').value > +$('s2').value - 8) $('s1').value = +$('s2').value - 8;
-    work.f1 = +$('s1').value / 100; render();
-  });
-  $('s2').addEventListener('input', () => {
-    if (+$('s2').value < +$('s1').value + 8) $('s2').value = +$('s1').value + 8;
-    work.f2 = +$('s2').value / 100; render();
-  });
+  $('s1').addEventListener('input', () => { if (+$('s1').value > +$('s2').value - 8) $('s1').value = +$('s2').value - 8; work.f1 = +$('s1').value / 100; render(); });
+  $('s2').addEventListener('input', () => { if (+$('s2').value < +$('s1').value + 8) $('s2').value = +$('s1').value + 8; work.f2 = +$('s2').value / 100; render(); });
 
   // ── ツール ────────────────────────────────────────────
-  function setTool(which){
-    mode = which;
-    $('toolPen').classList.toggle('on', which === 'pen');
-    $('toolDeath').classList.toggle('on', which === 'death');
-    $('toolFlag').classList.toggle('on', which === 'flag');
-  }
+  function setTool(w){ mode = w; $('toolPen').classList.toggle('on', w === 'pen'); $('toolDeath').classList.toggle('on', w === 'death'); $('toolFlag').classList.toggle('on', w === 'flag'); }
   $('toolPen').onclick = () => setTool('pen');
   $('toolDeath').onclick = () => setTool('death');
   $('toolFlag').onclick = () => setTool('flag');
   $('smoothOn').onclick = () => { smooth = true; $('smoothOn').classList.add('on'); $('smoothOff').classList.remove('on'); render(); };
   $('smoothOff').onclick = () => { smooth = false; $('smoothOff').classList.add('on'); $('smoothOn').classList.remove('on'); render(); };
-  $('undoPin').onclick = () => { if (work && work.pins.length) { work.pins.pop(); render(); } };
-  $('clearBtn').onclick = () => { resetWork(); render(); };
+  $('undoBtn').onclick = () => { if (work.history.length) { work.redo.push(work.history.pop()); render(); } };
+  $('redoBtn').onclick = () => { if (work.redo.length) { work.history.push(work.redo.pop()); render(); } };
+  $('clearBtn').onclick = () => { clearAll(); render(); };
 
-  // ── 画像として保存（SVG→canvas→PNG） ──────────────────
+  // ── 画像として保存 ────────────────────────────────────
   $('exportBtn').onclick = () => {
     $('hint').style.display = 'none';
     const clone = svg.cloneNode(true);
@@ -546,12 +531,10 @@
     img.onload = () => {
       const scale = 1400 / W;
       const cnv = document.createElement('canvas');
-      cnv.width = Math.round(W * scale);
-      cnv.height = Math.round(H * scale);
+      cnv.width = Math.round(W * scale); cnv.height = Math.round(H * scale);
       cnv.getContext('2d').drawImage(img, 0, 0, cnv.width, cnv.height);
       const a = document.createElement('a');
-      a.href = cnv.toDataURL('image/png');
-      a.download = 'sabakatsu_route.png';
+      a.href = cnv.toDataURL('image/png'); a.download = 'sabakatsu_route.png';
       document.body.appendChild(a); a.click(); a.remove();
     };
     img.src = url;
