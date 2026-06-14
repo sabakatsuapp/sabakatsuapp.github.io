@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>サバ活 試作品｜マーカー操作プロト（B案）</title>
+<style>
+  :root{
+    --bg:#0D0E12; --card:#1E222A; --line:#2A2F3A; --text:#F2F4F8; --sub:#9AA3B2;
+    --accent:#FF5A47; --lime:#B8E62E; --gold:#FFD700;
+  }
+  *{box-sizing:border-box; margin:0; padding:0; -webkit-tap-highlight-color:transparent;}
+  body{background:var(--bg); color:var(--text); font-family:"Hiragino Kaku Gothic ProN","Yu Gothic UI",Meiryo,sans-serif; padding:16px 12px 48px; display:flex; justify-content:center;}
+  .wrap{width:100%; max-width:480px;}
+  h1{font-size:18px; font-weight:900; letter-spacing:.5px;}
+  h1 small{display:block; font-size:11px; color:var(--lime); font-weight:700; margin-bottom:2px; letter-spacing:1px;}
+  .lead{color:var(--sub); font-size:12px; line-height:1.7; margin:8px 0 14px;}
+  .ft-tools{display:flex; gap:6px; justify-content:center; margin-bottom:8px;}
+  .ft-tb{font-size:13px; padding:8px 12px; border-radius:10px; border:1.5px solid var(--line); background:var(--card); color:var(--sub); cursor:pointer;}
+  .ft-tb.on{border-color:var(--accent); background:rgba(255,90,71,.14); color:var(--accent);}
+  .ft-map{position:relative; width:300px; height:360px; margin:0 auto; border-radius:12px; overflow:hidden; border:1px solid var(--line); touch-action:manipulation;}
+  .ft-mk{position:absolute; transform:translate(-50%,-50%); display:flex; align-items:center; justify-content:center; width:32px; height:32px; border-radius:50%; background:#fff; border:2px solid #15182b; font-size:17px; cursor:pointer; box-shadow:1px 1px 0 #00000066;}
+  .ft-mk.sel{outline:3px solid var(--accent); outline-offset:1px;}
+  .ft-mk.snap{border-color:var(--accent);}
+  .ft-cnt{position:absolute; top:-7px; right:-7px; min-width:16px; height:16px; border-radius:8px; background:#15182b; color:#fff; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; padding:0 3px;}
+  .ft-bub{position:absolute; transform:translate(-50%,-100%); margin-top:-22px; display:flex; align-items:center; gap:2px; background:#2A2F3A; border-radius:10px; padding:4px; z-index:20; white-space:nowrap; box-shadow:0 2px 8px #00000088;}
+  .ft-bb{min-width:24px; height:24px; border-radius:6px; border:none; background:#3A4150; color:#fff; font-size:13px; cursor:pointer; padding:0 5px;}
+  .ft-bb.k{background:var(--lime); color:#1a2400;} .ft-bb.d{background:var(--accent);}
+  .ft-tally{display:flex; gap:8px; margin:12px 0 6px;}
+  .ft-tc{flex:1; background:var(--card); border-radius:10px; padding:10px; text-align:center;}
+  .ft-tcv{font-size:22px; font-weight:900;} .ft-tcl{font-size:11px; color:var(--sub); margin-top:2px;}
+  .ft-hint{font-size:11px; color:var(--sub); line-height:1.6; text-align:center;}
+  .ft-save{display:block; width:100%; margin-top:8px; padding:12px; border-radius:10px; border:none; background:var(--accent); color:#fff; font-size:14px; font-weight:700; cursor:pointer;}
+  .ft-pop{margin-top:8px; background:var(--card); border:1px solid var(--line); border-radius:10px; padding:10px; display:none;}
+  .ft-pop.show{display:block;}
+  .ft-pop textarea, .ft-pop select{width:100%; font-size:13px; margin-top:4px; background:#15171C; color:var(--text); border:1px solid var(--line); border-radius:6px; padding:6px;}
+  .note{background:var(--card); border:1px solid var(--line); border-radius:12px; padding:12px; margin-top:16px;}
+  .note h2{font-size:12px; color:var(--lime); font-weight:700; margin-bottom:6px;}
+  .note ul{margin:0; padding-left:18px; font-size:12px; color:var(--sub); line-height:1.8;}
+  .ft-leg{font-size:11px; color:#5A6272; line-height:1.6; margin-top:12px; border-top:1px solid var(--line); padding-top:10px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1><small>サバ活 試作品 / フィールドトラッカー</small>マーカー操作プロト（B案）</h1>
+  <p class="lead">ルート上にマーカーを置いて、カウント・移動・メモ。💀はルート終端で吸着＝デス、🎯は「線」でルートに繋ぐ＝キル、それ以外は味方関与。下の戦果タリーがリアルタイムで動きます。実機では タップ=＋1／ダブルタップ=−1（0で削除）／長押し=移動 のジェスチャー想定（PCではボタンで再現）。</p>
+
+  <div class="ft-tools">
+    <button class="ft-tb on" data-t="death">💀 やられた</button>
+    <button class="ft-tb" data-t="hit">🎯 ヒット</button>
+    <button class="ft-tb" data-t="flag">🚩 旗</button>
+  </div>
+  <div class="ft-map" id="ft-map">
+    <svg width="300" height="360" style="position:absolute;inset:0" id="ft-svg">
+      <rect width="300" height="360" fill="#3a4a32"/>
+      <rect x="38" y="120" width="52" height="30" rx="3" fill="#5b5347"/>
+      <rect x="208" y="176" width="46" height="42" rx="3" fill="#5b5347"/>
+      <rect x="92" y="232" width="42" height="26" rx="3" fill="#5b5347"/>
+      <polyline points="150,332 118,272 162,212 138,150 150,92" fill="none" stroke="#5cc8ff" stroke-width="4" stroke-linejoin="round" stroke-linecap="round" opacity="0.95"/>
+      <circle cx="150" cy="332" r="5" fill="#5cc8ff"/>
+      <circle cx="150" cy="92" r="6" fill="#5cc8ff" stroke="#fff" stroke-width="2"/>
+      <text x="150" y="350" fill="#cfe8ff" font-size="10" text-anchor="middle">自分のルート（終端=被弾地点）</text>
+      <g id="ft-lines"></g>
+    </svg>
+    <div id="ft-markers"></div>
+  </div>
+
+  <div class="ft-tally">
+    <div class="ft-tc"><div class="ft-tcv" style="color:var(--lime)" id="ft-k">0</div><div class="ft-tcl">キル（🎯＋線）</div></div>
+    <div class="ft-tc"><div class="ft-tcv" style="color:var(--accent)" id="ft-d">0</div><div class="ft-tcl">デス（💀＋吸着）</div></div>
+    <div class="ft-tc"><div class="ft-tcv" style="color:var(--sub)" id="ft-a">0</div><div class="ft-tcl">味方関与</div></div>
+  </div>
+  <div class="ft-hint" id="ft-hint">上のツールで種類を選んで、マップをタップして配置。マーカーをタップすると操作バブルが出ます。</div>
+  <button class="ft-save" id="ft-save">保存して記録のK/Dに反映</button>
+  <div class="ft-pop" id="ft-pop"></div>
+
+  <div class="note">
+    <h2>見てほしいところ</h2>
+    <ul>
+      <li>🎯のキル化は「線」ボタンで明示接続。ドラッグ接続（移動と被る）よりこっちが楽かどうか</li>
+      <li>タップ=＋1／ダブルタップ=−1／長押し=移動 のジェスチャーで違和感が出そうな所</li>
+      <li>保存時にゲーム記録のK/Dへ反映する流れ（味方関与は除外）でOKか</li>
+    </ul>
+  </div>
+  <div class="ft-leg">これは操作確認用のプロト。描画（自由線）・PNG出力は本体モック（field-tracker-mock.html）側。</div>
+</div>
+
+<script>
+(function(){
+  var map=document.getElementById('ft-map'),mkLayer=document.getElementById('ft-markers'),lineLayer=document.getElementById('ft-lines');
+  var END={x:150,y:92}, ROUTE=[[150,332],[118,272],[162,212],[138,150],[150,92]];
+  var EMO={death:'💀',hit:'🎯',flag:'🚩'};
+  var type='death', marks=[], sel=null, moveMode=false, uid=1;
+  document.querySelectorAll('.ft-tb').forEach(function(b){b.addEventListener('click',function(){
+    document.querySelectorAll('.ft-tb').forEach(function(x){x.classList.remove('on');});this.classList.add('on');type=this.getAttribute('data-t');
+  });});
+  function dist(ax,ay,bx,by){var dx=ax-bx,dy=ay-by;return Math.sqrt(dx*dx+dy*dy);}
+  function nearestRoute(x,y){var best=ROUTE[0],bd=1e9;ROUTE.forEach(function(p){var d=dist(x,y,p[0],p[1]);if(d<bd){bd=d;best=p;}});return best;}
+  map.addEventListener('click',function(e){
+    if(e.target.closest('.ft-mk')||e.target.closest('.ft-bub'))return;
+    var r=map.getBoundingClientRect(),x=e.clientX-r.left,y=e.clientY-r.top;
+    if(moveMode&&sel){var m=marks.find(function(z){return z.id===sel;});m.x=x;m.y=y;m.snap=false;
+      if(m.type==='death'&&dist(x,y,END.x,END.y)<26){m.x=END.x;m.y=END.y;m.snap=true;}
+      moveMode=false;render();return;}
+    var nm={id:uid++,type:type,x:x,y:y,count:1,memo:'',reason:'',snap:false,line:false};
+    if(type==='death'&&dist(x,y,END.x,END.y)<26){nm.x=END.x;nm.y=END.y;nm.snap=true;}
+    marks.push(nm);sel=nm.id;render();
+  });
+  function render(){
+    mkLayer.innerHTML='';lineLayer.innerHTML='';
+    marks.forEach(function(m){
+      if(m.type==='hit'&&m.line){var p=nearestRoute(m.x,m.y);lineLayer.innerHTML+='<line x1="'+m.x+'" y1="'+m.y+'" x2="'+p[0]+'" y2="'+p[1]+'" stroke="#B8E62E" stroke-width="3" stroke-dasharray="4 3"/>';}
+      var el=document.createElement('div');el.className='ft-mk'+(m.id===sel?' sel':'')+(m.snap?' snap':'');
+      el.style.left=m.x+'px';el.style.top=m.y+'px';el.innerHTML=EMO[m.type]+(m.type!=='flag'?'<span class="ft-cnt">'+m.count+'</span>':'');
+      el.addEventListener('click',function(ev){ev.stopPropagation();sel=m.id;moveMode=false;render();});
+      mkLayer.appendChild(el);
+      if(m.id===sel){
+        var b=document.createElement('div');b.className='ft-bub';b.style.left=m.x+'px';b.style.top=m.y+'px';
+        var btns='<button class="ft-bb" data-a="dec">−</button><button class="ft-bb" data-a="inc">＋</button><button class="ft-bb" data-a="move">移動</button><button class="ft-bb" data-a="memo">✎</button>';
+        if(m.type==='hit')btns+='<button class="ft-bb k" data-a="line">線</button>';
+        btns+='<button class="ft-bb d" data-a="del">🗑</button>';
+        b.innerHTML=btns;
+        b.querySelectorAll('.ft-bb').forEach(function(bb){bb.addEventListener('click',function(ev){ev.stopPropagation();act(m,bb.getAttribute('data-a'));});});
+        mkLayer.appendChild(b);
+      }
+    });
+    tally();
+  }
+  function act(m,a){
+    if(a==='inc')m.count++;
+    else if(a==='dec'){m.count--;if(m.count<=0){marks=marks.filter(function(z){return z.id!==m.id;});sel=null;closePop();}}
+    else if(a==='move'){moveMode=true;document.getElementById('ft-hint').textContent='移動先をマップでタップ（💀は終端付近で吸着）';return;}
+    else if(a==='line'){m.line=!m.line;}
+    else if(a==='del'){marks=marks.filter(function(z){return z.id!==m.id;});sel=null;closePop();}
+    else if(a==='memo'){openPop(m);}
+    render();
+  }
+  function openPop(m){
+    var pop=document.getElementById('ft-pop');pop.classList.add('show');
+    var reasons=['','正面で撃ち負け','裏取られた','飛び出し被弾','移動中に被弾','索敵不足','ナイスムーブ','その他'];
+    pop.innerHTML='<div style="font-size:12px;font-weight:700">'+EMO[m.type]+' のメモ／反省</div>'
+      +'<select id="ft-reason">'+reasons.map(function(r){return '<option'+(r===m.reason?' selected':'')+'>'+(r||'（プルダウン：理由を選ぶ）')+'</option>';}).join('')+'</select>'
+      +'<textarea id="ft-memo" rows="2" placeholder="一言メモ（任意）">'+m.memo+'</textarea>'
+      +'<button class="ft-bb" id="ft-memook" style="margin-top:6px;background:var(--lime);color:#1a2400;height:28px">保存</button>';
+    document.getElementById('ft-memook').addEventListener('click',function(){
+      m.reason=document.getElementById('ft-reason').value;if(m.reason.indexOf('プルダウン')>=0)m.reason='';
+      m.memo=document.getElementById('ft-memo').value;closePop();render();
+    });
+  }
+  function closePop(){var p=document.getElementById('ft-pop');p.classList.remove('show');p.innerHTML='';}
+  function tally(){
+    var k=0,d=0,a=0;
+    marks.forEach(function(m){
+      if(m.type==='hit'){if(m.line)k+=m.count;else a+=m.count;}
+      else if(m.type==='death'){if(m.snap)d+=m.count;else a+=m.count;}
+    });
+    document.getElementById('ft-k').textContent=k;document.getElementById('ft-d').textContent=d;document.getElementById('ft-a').textContent=a;
+    document.getElementById('ft-save').textContent='保存：記録に キル'+k+' / デス'+d+' を反映';
+  }
+  document.getElementById('ft-save').addEventListener('click',function(){
+    var pop=document.getElementById('ft-pop');pop.classList.add('show');
+    var k=document.getElementById('ft-k').textContent,d=document.getElementById('ft-d').textContent;
+    pop.innerHTML='<div style="font-size:13px">この戦果を記録のK/Dに反映しますか？<br><b>キル '+k+' / デス '+d+'</b>（味方関与は除外）</div>'
+      +'<div style="display:flex;gap:8px;margin-top:8px"><button class="ft-bb k" style="flex:1;height:30px" onclick="this.closest(\'.ft-pop\').innerHTML=\'<div style=&quot;font-size:13px;color:#B8E62E&quot;>✓ 反映しました（モック）</div>\'">反映する</button><button class="ft-bb" style="flex:1;height:30px;background:#3A4150" onclick="this.closest(\'.ft-pop\').classList.remove(\'show\')">しない</button></div>';
+  });
+  marks.push({id:uid++,type:'death',x:END.x,y:END.y,count:1,memo:'',reason:'裏取られた',snap:true,line:false});
+  render();
+})();
+</script>
+</body>
+</html>
