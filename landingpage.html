@@ -10,7 +10,7 @@
 <!-- OGP（X等でリンクを貼ったときのカード表示） -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="サバ活｜サバゲー活動を、もっと楽しく。">
-<meta property="og:description" content="記録も、振り返りも、出撃準備も、カード共有も🎴 サバゲーの1日をまるごと楽しくする無料アプリ。App Store / Google Playで配信中📱">
+<meta property="og:description" content="記録も、振り返りも、出撃準備も、カード共有も🎴 サバゲーの1日をまるごと楽しくする無料アプリ。App Storeで配信中📱">
 <meta property="og:url" content="https://sabakatsuapp.github.io/landingpage.html">
 <meta property="og:image" content="https://sabakatsuapp.github.io/app-icon.png">
 <meta name="twitter:card" content="summary">
@@ -42,7 +42,7 @@
 
   .btn{display:block;border-radius:14px;padding:16px;font-size:16px;font-weight:800;text-decoration:none;margin-bottom:12px;text-align:center;}
   .btn.ios{background:var(--ink);color:#16181c;box-shadow:3px 3px 0 #00000055;}
-  .btn.android{border:2px solid var(--ink);color:var(--ink);box-shadow:3px 3px 0 #00000055;}
+  .btn.android{border:2px solid #3a4252;color:var(--muted);}
   .btn.x{border:2px solid var(--ink2);color:var(--ink2);}
   .soon{font-size:11px;font-weight:700;opacity:.75;display:block;margin-top:2px;}
 
@@ -140,13 +140,15 @@
       記録・振り返り・出撃準備・<b>カード共有</b>🎴<br>
       サバゲーの1日を、まるごと楽しくするアプリ。
     </p>
-    <div class="soonBadge">📱 App Store / Google Play で配信中</div>
+    <div class="soonBadge">📱 App Storeで配信中</div>
 
     <a class="btn ios" href="https://apps.apple.com/jp/app/id6777925478">
       App Store で入手
     </a>
-    <a class="btn android" href="https://play.google.com/store/apps/details?id=com.works63.sabakatsu">
-      Google Play で入手
+    <!-- Android 告知解禁時: href を https://play.google.com/store/apps/details?id=com.works63.sabakatsu にして soon を外し、.btn.android のスタイルを有効版（border:2px solid var(--ink);color:var(--ink);box-shadow:3px 3px 0 #00000055;）へ -->
+    <a class="btn android" href="#" onclick="return false;">
+      Google Play
+      <span class="soon">準備中</span>
     </a>
     <a class="btn x" href="https://x.com/SabakatsuApp" target="_blank" rel="noopener">
       𝕏 公式アカウントをフォロー
