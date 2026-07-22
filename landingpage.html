@@ -10,7 +10,7 @@
 <!-- OGP（X等でリンクを貼ったときのカード表示） -->
 <meta property="og:type" content="website">
 <meta property="og:title" content="サバ活 — サバゲーの戦績・活動を記録するアプリ">
-<meta property="og:description" content="出撃・キル/デス・写真をワンタップ記録。貯めた戦績はプロフィールカードにして共有🎴 App Storeで配信中📱">
+<meta property="og:description" content="出撃・キル/デス・写真をワンタップ記録。貯めた戦績はプロフィールカードにして共有🎴 App Store / Google Playで配信中📱">
 <meta property="og:url" content="https://sabakatsuapp.github.io/landingpage.html">
 <meta property="og:image" content="https://sabakatsuapp.github.io/app-icon.png">
 <meta name="twitter:card" content="summary">
@@ -42,7 +42,7 @@
 
   .btn{display:block;border-radius:14px;padding:16px;font-size:16px;font-weight:800;text-decoration:none;margin-bottom:12px;text-align:center;}
   .btn.ios{background:var(--ink);color:#16181c;box-shadow:3px 3px 0 #00000055;}
-  .btn.android{border:2px solid #3a4252;color:var(--muted);}
+  .btn.android{border:2px solid var(--ink);color:var(--ink);box-shadow:3px 3px 0 #00000055;}
   .btn.x{border:2px solid var(--ink2);color:var(--ink2);}
   .soon{font-size:11px;font-weight:700;opacity:.75;display:block;margin-top:2px;}
 
@@ -140,15 +140,13 @@
       出撃・キル/デス・写真をワンタップで記録。<br>
       貯めた戦績は<b>プロフィールカード</b>にして共有🎴
     </p>
-    <div class="soonBadge">📱 App Storeで配信中</div>
+    <div class="soonBadge">📱 App Store / Google Play で配信中</div>
 
     <a class="btn ios" href="https://apps.apple.com/jp/app/id6777925478">
       App Store で入手
     </a>
-    <!-- Android 版公開後: href を Google Play の URL に差し替えて soon を外す -->
-    <a class="btn android" href="#" onclick="return false;">
-      Google Play
-      <span class="soon">準備中</span>
+    <a class="btn android" href="https://play.google.com/store/apps/details?id=com.works63.sabakatsu">
+      Google Play で入手
     </a>
     <a class="btn x" href="https://x.com/SabakatsuApp" target="_blank" rel="noopener">
       𝕏 公式をフォローして続報を受け取る
